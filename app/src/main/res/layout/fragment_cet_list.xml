@@ -12,11 +12,11 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:paddingBottom="@dimen/activity_horizontal_margin"
         app:layout_empty="@layout/empty_business_view"
         app:layout_moreProgress="@layout/view_more_progress"
         app:recyclerClipToPadding="false"
         app:scrollbarStyle="outsideOverlay" />
-
-
 </FrameLayout>

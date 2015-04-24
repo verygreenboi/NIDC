@@ -1,5 +1,7 @@
 package ng.codehaven.cdc.utils;
 
+import android.content.Context;
+
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -15,6 +17,8 @@ public class DoServerOperations implements ServerOperations {
     private String order;
     private int limit, skip;
     private String[] keywords;
+    private Context mContext;
+    private boolean isBootStrapped;
 
     public DoServerOperations(String order, int limit, int skip, String[] keywords) {
         this.order = order;
@@ -23,14 +27,17 @@ public class DoServerOperations implements ServerOperations {
         this.keywords = keywords;
     }
 
-    public DoServerOperations(String order, int limit, int skip) {
+    public DoServerOperations(Context c, String order, int limit, int skip) {
         this.order = order;
         this.limit = limit;
         this.skip = skip;
+        this.mContext = c;
     }
 
     @Override
     public List<ParseObject> getItems() throws ParseException {
+        SharedPrefUtil sp = new SharedPrefUtil(mContext);
+        isBootStrapped = sp.getBool("seen");
         ParseQuery<ParseObject> q = ParseQuery.getQuery(Constants.CET_CLASS);
         q.orderByAscending(order);
         q.setLimit(limit);
@@ -39,7 +46,7 @@ public class DoServerOperations implements ServerOperations {
     }
 
     @Override
-    public List<ParseObject> doSearch() throws ParseException {
+    public List<ParseObject> doMultiSearch() throws ParseException {
         ParseQuery<ParseObject> q = ParseQuery.getQuery(Constants.CET_CLASS);
         q.orderByAscending(order);
         q.setLimit(limit);

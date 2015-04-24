@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ng.codehaven.cdc.fragments.DetailFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/heroView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:background="@color/primary"-->
+            <!--android:minHeight="92dp">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/desc"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="72dp"-->
+                <!--android:paddingRight="@dimen/activity_vertical_margin"-->
+                <!--android:paddingEnd="@dimen/activity_vertical_margin"-->
+                <!--android:layout_marginTop="@dimen/activity_horizontal_margin"-->
+                <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"-->
+                <!--android:textColor="@color/abc_primary_text_material_dark"-->
+                <!--android:text="@string/desc"-->
+                <!--android:textSize="24sp"-->
+                <!--android:textAllCaps="true" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/cetCode"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="72dp"-->
+                <!--android:textColor="@color/abc_secondary_text_material_dark"-->
+                <!--android:paddingRight="@dimen/activity_vertical_margin"-->
+                <!--android:paddingEnd="@dimen/activity_vertical_margin"-->
+                <!--android:layout_marginBottom="8dp"-->
+                <!--android:text="CET" />-->
+
+            <!--&lt;!&ndash;<View&ndash;&gt;-->
+                <!--&lt;!&ndash;style="@style/Divider"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_marginBottom="8dp" />&ndash;&gt;-->
+        <!--</LinearLayout>-->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_vertical_margin"
+            android:paddingStart="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_vertical_margin"
+            android:paddingEnd="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/importDutyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:text="Import duty" />
+
+            <TextView
+                android:id="@+id/importDuty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:text="Import duty" />
+
+            <TextView
+                android:id="@+id/vatLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:text="VAT" />
+
+            <TextView
+                android:id="@+id/vat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:text="VAT" />
+
+            <TextView
+                android:id="@+id/levyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/abc_primary_text_material_light"
+                android:text="Levy" />
+
+            <TextView
+                android:id="@+id/levy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:text="Levy" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/calculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/calculateBtn"
+        android:textColor="@color/primary"
+        style="?android:attr/borderlessButtonStyle"/>
+
+
+
+</RelativeLayout>

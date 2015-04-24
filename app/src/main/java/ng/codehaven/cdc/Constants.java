@@ -7,6 +7,9 @@ public class Constants {
     public static final double FOB_PERCENTAGE = 1;
     public static final double SURCHARGE = 7;
 
+    public static final int INIT_LIMIT = 20;
+    public static final int INIT_SKIP = 0;
+
     public static final String CET_LIST_LABEL = "cet_list";
 
     public static final String APPLICATION_ID = "kBAyptIJ5tLSoCAKpXFTGcNWoUpUQJHvczG0zvke";
@@ -20,4 +23,12 @@ public class Constants {
     public static final String API_SEARCH_URL = "https://api.parse.com/1/classes/CET_tariff";
 
     public static final String CET_CLASS = "CET_tariff";
+
+    public static final int[] MENU_IMGS = {
+            R.drawable.ic_note_add_white,
+            R.drawable.ic_list_white,
+            R.drawable.ic_bookmark_white,
+            R.drawable.ic_report_problem_white,
+            R.drawable.ic_star_rate_white
+    };
 }

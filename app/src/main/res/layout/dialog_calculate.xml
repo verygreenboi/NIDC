@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/primary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal"
+            android:background="@color/background_material_light">
+
+            <TextView
+                android:id="@+id/exchangeCurrencyLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Exchage in Dollars?"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/rateSwitch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:switchMinWidth="24sp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/background_material_light">
+
+            <EditText
+                android:id="@+id/rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:hint="Rate"
+                android:inputType="number"
+                android:textColorHint="@color/primary"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/cif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:inputType="number"
+                android:hint="CIF"
+                android:textColorHint="@color/primary" />
+
+            <EditText
+                android:id="@+id/fob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:inputType="number"
+                android:hint="FOB"
+                android:textColorHint="@color/primary" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:layout_gravity="bottom"
+        android:background="@color/background_material_light">
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:textColor="@color/primary"
+            style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+            android:id="@+id/calculate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/calculate"
+            android:textColor="@color/primary"
+            style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+
+</LinearLayout>

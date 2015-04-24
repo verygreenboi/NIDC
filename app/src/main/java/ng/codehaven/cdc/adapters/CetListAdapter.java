@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,16 +14,12 @@ import java.util.List;
 import ng.codehaven.cdc.R;
 import ng.codehaven.cdc.models.Item;
 
-/**
- * Created by Thompson on 05/03/2015.
- */
-public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
-    public static final int TYPE_ITEM = 1;
+public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Item> items;
     private Context mContext;
-    private String mDesc, mCet;
-    private int MIN_ITEMS = 1;
     private ListHandler lh;
+
+    private Item mItem;
 
     public CetListAdapter(List<Item> items, Context mContext) {
         this.items = items;
@@ -32,12 +29,7 @@ public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cet_item, parent, false);
-        ItemHolder ih = new ItemHolder(v);
-        ih.getmDescription().setOnClickListener(this);
-        ih.getmContainer().setOnClickListener(this);
-        ih.getmCetCode().setOnClickListener(this);
-
-        return ih;
+        return new ItemHolder(v);
     }
 
     @Override
@@ -46,17 +38,9 @@ public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     private void bindItem(ItemHolder holder, int position) {
-        mDesc = items.get(position).getDescription();
-        mCet = items.get(position).getCet();
-
+        mItem = items.get(position);
         ItemHolder vh = (ItemHolder) holder;
-
-        vh.mDescription.setText(mDesc);
-        vh.mCetCode.setText(mCet);
-
-        vh.getmDescription().setTag(position);
-        vh.getmCetCode().setTag(position);
-        vh.getmContainer().setTag(position);
+        vh.bindItem(mItem);
     }
 
     @Override
@@ -68,15 +52,7 @@ public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return size;
     }
 
-    @Override
-    public void onClick(View v) {
-        int position = (Integer) v.getTag();
-        Item i = items.get(position);
-        lh.onTitleClick(v, position, i);
-    }
-
     public void add(List<Item> mItems) {
-
         int intDataSize = items.size();
         items.addAll(intDataSize, mItems);
         notifyItemRangeInserted(intDataSize, mItems.size());
@@ -99,20 +75,29 @@ public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     public interface ListHandler {
-        public void onTitleClick(View v, int position, Item item);
+        void onTitleClick(View v, Item item);
     }
 
-    public class ItemHolder extends RecyclerView.ViewHolder {
+    public class ItemHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
 
         private TextView mDescription, mCetCode;
         private RelativeLayout mContainer;
+        private CheckBox mFav;
 
         public ItemHolder(View itemView) {
             super(itemView);
-
             mContainer = (RelativeLayout) itemView.findViewById(R.id.list_container);
             mDescription = (TextView) itemView.findViewById(R.id.desc);
             mCetCode = (TextView) itemView.findViewById(R.id.cetCode);
+            mFav = (CheckBox) itemView.findViewById(R.id.fav);
+
+            mContainer.setOnLongClickListener(this);
+            mDescription.setOnLongClickListener(this);
+            mCetCode.setOnLongClickListener(this);
+
+            mContainer.setOnClickListener(this);
+            mCetCode.setOnClickListener(this);
+            mDescription.setOnClickListener(this);
         }
 
         public RelativeLayout getmContainer() {
@@ -125,6 +110,45 @@ public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public TextView getmCetCode() {
             return mCetCode;
+        }
+
+        public void bindItem(Item item) {
+            mDescription.setText(item.getDescription());
+            mCetCode.setText(item.getCet());
+            mFav.setChecked(item.isFavorite());
+        }
+
+
+        /**
+         * Called when a view has been clicked and held.
+         *
+         * @param v The view that was clicked and held.
+         * @return true if the callback consumed the long click, false otherwise.
+         */
+        @Override
+        public boolean onLongClick(View v) {
+            boolean checked = mFav.isChecked();
+            int pos = getAdapterPosition();
+
+            Item i = items.get(pos);
+
+            mFav.setChecked(!checked);
+            i.setFavorite(!checked);
+
+            return true;
+        }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            if (mItem != null) {
+                int pos = getAdapterPosition();
+                lh.onTitleClick(v, items.get(pos));
+            }
         }
     }
 

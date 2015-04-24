@@ -11,5 +11,24 @@
     <string name="hs_code_list_title">HS Codes</string>
     <string name="networkError">Please check your internet connection.</string>
     <string name="title_activity_details">Details</string>
+    <string name="banner_ad_unit">ca-app-pub-9323445577003464/5237222742</string>
+    <string name="desc">Description</string>
+    <string name="calculateBtn">Calculate</string>
+    <string name="calculate">Calculate</string>
+    <string name="cancel">Cancel</string>
+
+
+    <string name="isDebug">true</string>
+    <string name="drawer_close">Drawer close</string>
+    <string name="drawer_open">Drawer open</string>
+
+    <string-array name="menu_list">
+        <item>Calculator</item>
+        <item>List</item>
+        <item>Favorites</item>
+        <item>Prohibited List</item>
+        <item>Duty Laws</item>
+    </string-array>
+    <string name="title_activity_search_results">Search</string>
 
 </resources>

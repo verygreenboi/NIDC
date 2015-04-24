@@ -11,13 +11,16 @@ import android.os.IBinder;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ng.codehaven.cdc.interfaces.ServiceCallbacks;
 import ng.codehaven.cdc.utils.DoServerOperations;
+import ng.codehaven.cdc.utils.Logger;
 
 public class GetItemsService extends Service {
 
@@ -28,6 +31,7 @@ public class GetItemsService extends Service {
     private String order;
     private int limit, skip;
     private boolean refresh;
+    private String[] mPayload;
 
     private ServiceCallbacks mCallBack;
 
@@ -46,7 +50,8 @@ public class GetItemsService extends Service {
         new doGetItemsAsyncTask().execute(j);
     }
 
-    public void doSearch(String[] s) {
+    public void doSearch(JSONObject s, String[] payload) {
+        mPayload = payload;
         new doSearchAsyncTask().execute(s);
     }
 
@@ -61,7 +66,7 @@ public class GetItemsService extends Service {
         }
     }
 
-    private final class doSearchAsyncTask extends AsyncTask<String[], Integer, List<ParseObject>> {
+    private final class doSearchAsyncTask extends AsyncTask<JSONObject, Integer, List<ParseObject>> {
 
         /**
          * Override this method to perform a computation on a background thread. The
@@ -78,13 +83,23 @@ public class GetItemsService extends Service {
          * @see #publishProgress
          */
         @Override
-        protected List<ParseObject> doInBackground(String[]... params) {
-            mServer = new DoServerOperations("cet", 20, 0, params[0]);
+        protected List<ParseObject> doInBackground(JSONObject... params) {
+            limit = 0;
+            try {
+                skip = params[0].getInt("page");
+                refresh = params[0].getBoolean("isRefresh");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+
+            mServer = new DoServerOperations("cet", 20, skip, mPayload);
 
             List<ParseObject> l = null;
 
             try {
-                l = mServer.doSearch();
+                l = mServer.doMultiSearch();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -105,7 +120,15 @@ public class GetItemsService extends Service {
         @Override
         protected void onPostExecute(List<ParseObject> items) {
             if (mCallBack != null) {
-                mCallBack.onSearchComplete(items);
+                if (!refresh) {
+                    if (skip > 0) {
+                        mCallBack.onMoreOperationComplete(items);
+                    } else {
+                        mCallBack.onSearchComplete(items);
+                    }
+                } else {
+                    mCallBack.onRefreshList(items);
+                }
             }
         }
 
@@ -147,7 +170,7 @@ public class GetItemsService extends Service {
                 refresh = false;
             }
 
-            mServer = new DoServerOperations(order, limit, skip);
+            mServer = new DoServerOperations(getApplicationContext(), order, limit, skip);
 
             List<ParseObject> items = null;
 

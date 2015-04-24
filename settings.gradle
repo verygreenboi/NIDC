@@ -1,2 +1,3 @@
 include ':app'
 include ':app:libraries:srv:SuperRecyclerView:SuperRecyclerView'
+//include ':app:libraries:recyclerview-multiselect:recyclerview-multiselect'

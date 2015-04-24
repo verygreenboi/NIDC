@@ -1,13 +1,18 @@
 package ng.codehaven.cdc.utils;
 
-import ng.codehaven.cdc.Constants;
+import android.os.Bundle;
 
-/**
- * Created by Thompson on 02/03/2015.
- */
+import ng.codehaven.cdc.Constants;
+import ng.codehaven.cdc.fragments.DetailFragment;
+
+
 public class Calculator {
 
 
+    /**
+     * @param cif Cost insurance freight
+     * @return {#link ETLS}
+     */
     public static double ETLS(double cif) {
         return (Constants.ETLS_PERCENTAGE / 100) * cif;
     }
@@ -62,6 +67,33 @@ public class Calculator {
                 VAT(cif, fob, importDuty, levy),
                 total(cif, fob, importDuty, levy)
         };
+    }
+
+    public static Bundle getDuties(Bundle b){
+
+
+        double cif = b.getInt("cif");
+        double fob = b.getInt("fob");
+        double importDuty = b.getInt(DetailFragment.ARG_IMPORT_DUTY);
+        double levy = b.getInt(DetailFragment.ARG_LEVY);
+
+        if (b.getBoolean("inDollars")){
+            cif = cif * b.getInt("xRate");
+            fob = fob * b.getInt("xRate");
+        }
+
+        double[] duties = calculate(cif, fob, importDuty, levy);
+
+        b.putInt("dutyResult", (int) duties[0]);
+        b.putInt("surchargeResult", (int) duties[1]);
+        b.putInt("etlsResult", (int) duties[2]);
+        b.putInt("cissResult", (int) duties[3]);
+        b.putInt("levyResult", (int) duties[4]);
+        b.putInt("vatResult", (int) duties[5]);
+        b.putInt("totalResult", (int) duties[6]);
+
+//        Logger.m(b.toString());
+        return b;
     }
 
 }

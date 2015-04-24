@@ -1,0 +1,140 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ng.codehaven.cdc.fragments.ResultFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingStart="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:paddingEnd="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DUTY"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textSize="16sp"
+            android:textColor="@color/primary" />
+
+        <TextView
+            android:id="@+id/duty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="Duty" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SURCHARGE"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/surcharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="Surcharge" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ETLS"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/etls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="ETLS" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CISS"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/ciss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LEVY"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/primary"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/levy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:text="Levy" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VAT"
+            android:textColor="@color/primary"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/vat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.AppCompat.Body1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TOTAL:"
+                android:textColor="@color/primary"
+                style="@style/TextAppearance.AppCompat.Headline" />
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/TextAppearance.AppCompat.Title" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

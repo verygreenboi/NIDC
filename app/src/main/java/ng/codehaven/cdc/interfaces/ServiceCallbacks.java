@@ -4,9 +4,6 @@ import com.parse.ParseObject;
 
 import java.util.List;
 
-/**
- * Created by Thompson on 22/03/2015.
- */
 public interface ServiceCallbacks {
     public void onOperationProgress(int progress);
 

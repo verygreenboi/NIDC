@@ -7,13 +7,30 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 
-/**
- * Created by Thompson on 05/03/2015.
- */
+import java.util.HashMap;
+
+
 public class App extends Application {
+
+    // The following line should be changed to include the correct property id.
+    private static final String PROPERTY_ID = "UA-61338222-2";
+
+    public static int GENERAL_TRACKER = 0;
+
+    public enum TrackerName {
+        APP_TRACKER, // Tracker used only in this app.
+        GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
+        ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
+    }
+
+
+    HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+
 
     private static final String TAG = "Volley Request";
     /**
@@ -35,12 +52,27 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Parse.enableLocalDatastore(this);
         Parse.initialize(this, Constants.APPLICATION_ID, Constants.APPLICATION_KEY);
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
         // initialize the singleton
         sInstance = this;
+    }
 
+    synchronized Tracker getTracker(TrackerName trackerId) {
+        if (!mTrackers.containsKey(trackerId)) {
+
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(R.xml.app_tracker)
+                    : (trackerId == TrackerName.GLOBAL_TRACKER) ? analytics.newTracker(PROPERTY_ID)
+                    : analytics.newTracker(R.xml.ecommerce_tracker);
+            t.enableAdvertisingIdCollection(true);
+            mTrackers.put(trackerId, t);
+
+        }
+        return mTrackers.get(trackerId);
     }
 
     /**
@@ -95,5 +127,7 @@ public class App extends Application {
             mRequestQueue.cancelAll(tag);
         }
     }
+
+
 
 }

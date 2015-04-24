@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+
+    <style name="AppTheme" parent="_idc_blue" />
+
+    <style name="_idc_blue" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:editTextBackground">@drawable/idc_edit_text_holo_light</item>
+
+        <item name="android:textColorHighlight">#992196f3</item>
+        <item name="android:textSelectHandleLeft">@drawable/idc_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/idc_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/idc_text_select_handle_middle</item>
+
+        <item name="android:listChoiceIndicatorMultiple">@drawable/idc_btn_check_holo_light</item>
+
+        <item name="android:listChoiceIndicatorSingle">@drawable/idc_btn_radio_holo_light</item>
+
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarIDC</item>
+    </style>
+
+
+</resources>
