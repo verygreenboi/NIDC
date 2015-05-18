@@ -9,4 +9,6 @@ import org.json.JSONObject;
  */
 public interface ListViewItemClick {
     public void onTitleClick(View v, int position, JSONObject item);
+
+    public void onItemLongClick(int position);
 }

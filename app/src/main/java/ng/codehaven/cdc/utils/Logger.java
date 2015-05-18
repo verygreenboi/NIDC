@@ -4,13 +4,18 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import ng.codehaven.cdc.BuildConfig;
+
 /**
  * Created by mrsmith on 11/13/14.
  * Logger utility
  */
 public class Logger {
     public static void m(String message) {
-        Log.d("EKO-log", message);
+
+        if (BuildConfig.DEBUG) {
+            Log.d("EKO-log", message);
+        }
     }
 
     public static void s(Context context, String message) {

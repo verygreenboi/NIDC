@@ -1,5 +1,7 @@
 package ng.codehaven.cdc.models;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -13,6 +15,16 @@ public class Favorite extends RealmObject {
 
     private String cet, description;
     private int levy, vat, duty;
+
+    private Date createdAt;
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public String getObjectId() {
         return objectId;

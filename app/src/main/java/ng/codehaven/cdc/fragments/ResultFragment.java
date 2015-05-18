@@ -98,7 +98,7 @@ public class ResultFragment extends Fragment {
         return v;
     }
 
-    private String formatNumber(int n) {
+    public String formatNumber(int n) {
         Locale nigeria = new Locale("en", "NG");
         NumberFormat formatter = NumberFormat.getCurrencyInstance(nigeria);
 

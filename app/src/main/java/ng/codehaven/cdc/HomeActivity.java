@@ -3,6 +3,7 @@ package ng.codehaven.cdc;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -33,15 +34,19 @@ import ng.codehaven.cdc.fragments.CalculatorFragment;
 import ng.codehaven.cdc.fragments.CetListFragment;
 import ng.codehaven.cdc.fragments.DetailFragment;
 import ng.codehaven.cdc.fragments.FavoritesFragment;
+import ng.codehaven.cdc.fragments.ResultFragment;
+import ng.codehaven.cdc.fragments.WebViewFragment;
+import ng.codehaven.cdc.interfaces.FragmentIdentity;
 import ng.codehaven.cdc.models.Item;
 import ng.codehaven.cdc.models.ListMenuItem;
 import ng.codehaven.cdc.utils.AdsCreator;
+import ng.codehaven.cdc.utils.Calculator;
 import ng.codehaven.cdc.utils.Logger;
 import ng.codehaven.cdc.utils.SharedPrefUtil;
 
 
 public class HomeActivity extends ActionBarActivity implements View.OnClickListener,
-        CetListFragment.bubbleItemUp, DetailFragment.doCalculate, MenuListAdapter.MenuSelected {
+        CetListFragment.bubbleItemUp, DetailFragment.doCalculate, MenuListAdapter.MenuSelected, FragmentIdentity, CalculatorFragment.doCalculate {
 
     @InjectView(R.id.container)
     protected FrameLayout mContainer;
@@ -51,17 +56,22 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     @InjectView(R.id.toolbar)
     protected Toolbar mToolbar;
 
-    @InjectView(R.id.drawerLayout) protected DrawerLayout mDrawerLayout;
-    @InjectView(R.id.navdrawer_items_list) protected RecyclerView mMenuListLayout;
-    @InjectView(R.id.left_layout) protected FrameLayout mLeftLayout;
+    @InjectView(R.id.drawerLayout)
+    protected DrawerLayout mDrawerLayout;
+    @InjectView(R.id.navdrawer_items_list)
+    protected RecyclerView mMenuListLayout;
+    @InjectView(R.id.left_layout)
+    protected FrameLayout mLeftLayout;
 
+    ArrayList<ListMenuItem> mMenuList;
     private FrameLayout mDetailsLayout;
-
     private MenuListAdapter mMenuAdapter;
     private String[] mMenuItems;
-    ArrayList<ListMenuItem> mMenuList;
-
     private ActionBarDrawerToggle mDrawerToggle;
+    private boolean mDrawerOpened;
+    private boolean mDrawerSeen;
+
+    private SharedPrefUtil mSharedPrefUtil;
 
     private int oldPosition = -1;
 
@@ -81,10 +91,15 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
         ButterKnife.inject(this);
 
+        mSharedPrefUtil = new SharedPrefUtil(this);
+
+        SharedPreferences sp = mSharedPrefUtil.getSharedPref(Constants.DRAWER_PREF, Context.MODE_PRIVATE);
+        mDrawerOpened = sp.getBoolean(Constants.DRAWER_OPEN_PREF, false);
+        mDrawerSeen = sp.getBoolean(Constants.DRAWER_SEEN_PREF, false);
+
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
 
         //Get a Tracker (should auto-report)
         ((App) getApplication()).getTracker(App.TrackerName.APP_TRACKER);
@@ -106,23 +121,26 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         mMenuListLayout.setAdapter(mMenuAdapter);
 
         mDetailsLayout = (FrameLayout) findViewById(R.id.details_container);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.drawer_open, R.string.drawer_close){
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
+                mDrawerOpened = true;
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
+                mDrawerOpened = false;
+                mDrawerSeen = true;
             }
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        mDrawerLayout.openDrawer(Gravity.START);
+//        mDrawerLayout.openDrawer(Gravity.START);
 
         loadFragment(mContainer.getId(), new CalculatorFragment());
 
@@ -142,6 +160,22 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         super.onStart();
         //Get an Analytics tracker to report app starts & uncaught exceptions etc.
         GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!mDrawerOpened && !mDrawerSeen) {
+            mDrawerLayout.openDrawer(Gravity.START);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor editor = mSharedPrefUtil.getSharedPref(Constants.DRAWER_PREF, Context.MODE_PRIVATE).edit();
+        editor.putBoolean(Constants.DRAWER_OPEN_PREF, mDrawerOpened).apply();
+        editor.putBoolean(Constants.DRAWER_SEEN_PREF, mDrawerSeen).apply();
     }
 
     @Override
@@ -249,20 +283,11 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void itemSelected(int position) {
         String item = mMenuList.get(position).getTitle();
-
-        if (oldPosition != -1){
-            mMenuList.get(oldPosition).setIsSelected(false);
-        }
-
-        mMenuList.get(position).setIsSelected(true);
-
-        mMenuAdapter.setSelectedItem(position, mMenuList);
         mDrawerLayout.closeDrawer(mLeftLayout);
-
-        oldPosition = position;
+        Bundle b = new Bundle();
 
         fm = getSupportFragmentManager();
-        switch (position){
+        switch (position) {
             case 0:
                 fm.beginTransaction().replace(mContainer.getId(), new CalculatorFragment()).addToBackStack(null).commit();
                 break;
@@ -272,6 +297,37 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
             case 2:
                 fm.beginTransaction().replace(mContainer.getId(), new FavoritesFragment()).addToBackStack(null).commit();
                 break;
+            case 3:
+                b.putString("url", Constants.PROHIBITION_URL);
+                b.putInt("step", 3);
+                fm.beginTransaction().replace(mContainer.getId(), WebViewFragment.newInstance(b)).addToBackStack(null).commit();
+                break;
+            case 4:
+                b.putString("url", Constants.CEMA_URL);
+                b.putInt("step", 4);
+                fm.beginTransaction().replace(mContainer.getId(), WebViewFragment.newInstance(b)).addToBackStack(null).commit();
+                break;
         }
+    }
+
+    @Override
+    public void getId(int i) {
+        if (oldPosition != -1) {
+            mMenuList.get(oldPosition).setIsSelected(false);
+        }
+        mMenuList.get(i).setIsSelected(true);
+        mMenuAdapter.setSelectedItem(i, mMenuList);
+        oldPosition = i;
+    }
+
+    @Override
+    public void getTitle(String s) {
+        getSupportActionBar().setTitle(s);
+    }
+
+    @Override
+    public void doCalc(Bundle b) {
+        fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(mContainer.getId(), ResultFragment.newInstance(Calculator.calDuties(b))).addToBackStack(null).commit();
     }
 }

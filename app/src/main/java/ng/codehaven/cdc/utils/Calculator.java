@@ -69,6 +69,91 @@ public class Calculator {
         };
     }
 
+    public static Bundle calDuties(Bundle b) {
+        Bundle n = new Bundle();
+
+        int cif = getCif(b.getInt("cif"), b.getInt("xr"), b.getBoolean("isDollars"));
+
+        int fob = getFob(b.getInt("fob"), b.getInt("xr"), b.getBoolean("isDollars"));
+
+        int duty = getDuty(b.getInt("duty"), cif);
+
+        //Duty Result
+        n.putInt("dutyResult", duty);
+
+        // Surcharge
+        n.putInt("surchargeResult", getSurcharge(duty));
+
+        // ETLS
+        n.putInt("etlsResult", getETLS(cif));
+
+        // CISS
+        n.putInt("cissResult", getCISS(fob));
+
+        // LEVY
+        n.putInt("levyResult", getLevy(b.getInt("levy"), cif));
+
+        // VAT
+        n.putInt("vatResult", getVat(cif, duty, getSurcharge(duty), getETLS(cif), getCISS(fob), getLevy(b.getInt("levy"), cif)));
+
+        n.putInt("totalResult",
+                getTotal(
+                        duty,
+                        getSurcharge(duty),
+                        getLevy(b.getInt("levy"), cif),
+                        getCISS(fob),
+                        getETLS(cif),
+                        getVat(cif, duty, getSurcharge(duty), getETLS(cif), getCISS(fob), getLevy(b.getInt("levy"), cif))
+                ));
+        return n;
+    }
+
+    private static int getTotal(int duty, int surcharge, int levy, int ciss, int etls, int vat) {
+        return duty + surcharge + levy + ciss + etls + vat;
+    }
+
+    private static int getVat(int cif, int duty, int surcharge, int etls, int ciss, int levy) {
+        return (int) ((Constants.VAT / 100) * (etls + ciss + duty + surcharge + levy + cif));
+    }
+
+    private static int getLevy(int levy, int cif) {
+        return (int) (((double) levy / 100) * cif);
+    }
+
+    private static int getCISS(int fob) {
+        return (int) ((Constants.FOB_PERCENTAGE / 100) * fob);
+    }
+
+    private static int getFob(int fob, int exchange, boolean isDollars) {
+        if (isDollars) {
+            fob = fob * exchange;
+        }
+        return fob;
+    }
+
+    private static int getETLS(int cif) {
+        return (int) ((Constants.ETLS_PERCENTAGE / 100) * cif);
+    }
+
+    private static int getSurcharge(int duty) {
+        return (int) ((Constants.SURCHARGE / 100) * duty);
+    }
+
+    private static int getDuty(int duty, int cif) {
+        double dutyD = duty;
+        duty = (int) (cif * (dutyD / 100));
+
+        return duty;
+    }
+
+    private static int getCif(int cif, int exchange, boolean isDollars) {
+        if (isDollars) {
+            cif = cif * exchange;
+        }
+        return cif;
+    }
+
+
     public static Bundle getDuties(Bundle b){
 
 

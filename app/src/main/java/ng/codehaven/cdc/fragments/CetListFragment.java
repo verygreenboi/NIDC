@@ -26,17 +26,16 @@ import com.parse.ParseObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ng.codehaven.cdc.Constants;
 import ng.codehaven.cdc.DividerItemDecoration;
 import ng.codehaven.cdc.R;
 import ng.codehaven.cdc.adapters.CetListAdapter;
+import ng.codehaven.cdc.interfaces.FragmentIdentity;
 import ng.codehaven.cdc.interfaces.ServiceCallbacks;
 import ng.codehaven.cdc.models.Item;
 import ng.codehaven.cdc.services.GetItemsService;
-import ng.codehaven.cdc.utils.Logger;
 import ng.codehaven.cdc.utils.LoopItems;
 
 /**
@@ -46,14 +45,14 @@ public class CetListFragment extends Fragment implements CetListAdapter.ListHand
         SwipeRefreshLayout.OnRefreshListener, ServiceCallbacks, ServiceConnection {
 
 
+    public static final int ID = 1;
+    public static final String TITLE = "TARIFF LIST";
     private SuperRecyclerView mRecycler;
     private CetListAdapter mAdapter;
-
     private GetItemsService mService;
-
     private bubbleItemUp handler;
-
     private LoopItems lp;
+    private FragmentIdentity identity;
 
     public CetListFragment() {
         // Required empty public constructor
@@ -63,7 +62,6 @@ public class CetListFragment extends Fragment implements CetListAdapter.ListHand
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().setTitle("List");
     }
 
     @Override
@@ -104,6 +102,8 @@ public class CetListFragment extends Fragment implements CetListAdapter.ListHand
             }
         }, 10);
 
+        identity.getId(ID);
+        identity.getTitle(TITLE);
     }
 
     @Override
@@ -125,6 +125,7 @@ public class CetListFragment extends Fragment implements CetListAdapter.ListHand
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         handler = (bubbleItemUp) getActivity();
+        identity = (FragmentIdentity) getActivity();
     }
 
     @Override
@@ -142,6 +143,11 @@ public class CetListFragment extends Fragment implements CetListAdapter.ListHand
     public void onTitleClick(View v, Item item) {
 
         handler.sendItemUp(item);
+
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
 
     }
 
@@ -176,6 +182,7 @@ public class CetListFragment extends Fragment implements CetListAdapter.ListHand
         lp = new LoopItems(getActivity(), items);
 
         mAdapter.add(lp.getItems());
+        mRecycler.hideMoreProgress();
     }
 
     @Override

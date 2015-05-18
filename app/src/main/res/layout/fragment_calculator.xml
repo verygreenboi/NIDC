@@ -1,10 +1,144 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     tools:context="ng.codehaven.cdc.fragments.CalculatorFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:background="@color/idc_color"
+            android:minHeight="?attr/actionBarSize"
+            android:orientation="horizontal"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp">
+
+            <RadioButton
+                android:id="@+id/naira"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:elegantTextHeight="false"
+                android:hint="@string/txt_naira" />
+
+            <RadioButton
+                android:id="@+id/dollars"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:elegantTextHeight="false"
+                android:hint="@string/txt_dollars" />
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/exchangeRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/radioGroup"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="EXCHANGE RATE"
+            android:inputType="number"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/fob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/exchangeRate"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="FOB"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/cif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/fob"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="CIF"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/duty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/cif"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="DUTY"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/levy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/duty"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="LEVY"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/vat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/levy"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="VAT"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btn_calculate"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/vat"
+            android:layout_marginTop="32dp"
+            android:text="Calculate"
+            android:textColor="@color/primary" />
+    </RelativeLayout>
 
 
-</LinearLayout>
+</ScrollView>

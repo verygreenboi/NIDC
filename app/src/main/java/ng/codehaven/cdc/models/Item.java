@@ -13,22 +13,12 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import ng.codehaven.cdc.fragments.DetailFragment;
 import ng.codehaven.cdc.models.databases.Items;
-import ng.codehaven.cdc.models.providers.FavoriteItemsProvider;
-import ng.codehaven.cdc.utils.Logger;
 
 
 public class Item {
-    private String cet, description, objectId;
-    private int levy, vat, duty;
-    private Date createdAt;
-    private Context mContext;
     public static final String FAV_KEY = "ng.codehaven.idc.FAVORITE_PREFERENCE";
-
-    private Realm realm;
-
     Items dbHelper;
     SQLiteDatabase db;
-
     String[] from = {
             DetailFragment.ARG_ID,
             DetailFragment.ARG_CET,
@@ -37,9 +27,13 @@ public class Item {
             DetailFragment.ARG_LEVY,
             DetailFragment.ARG_VAT
     };
-
     // Defines a string to contain the selection clause
     String mSelectionClause = null;
+    private String cet, description, objectId;
+    private int levy, vat, duty;
+    private Date createdAt;
+    private Context mContext;
+    private Realm realm;
 
     public Item(Context context, String cet, String description, String objectId, int levy, int vat, int duty, Date createdAt) {
         this.mContext = context;
@@ -95,6 +89,8 @@ public class Item {
         favorite.setDescription(getDescription());
         favorite.setDuty(getDuty());
         favorite.setLevy(getLevy());
+        favorite.setVat(getVat());
+        favorite.setCreatedAt(getCreatedAt());
         favorite.setObjectId(getObjectId());
 
         realm.commitTransaction();

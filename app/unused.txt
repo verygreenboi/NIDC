@@ -2413,7 +2413,6 @@ android.support.v7.app.ActionBar:
     public abstract void setSelectedNavigationItem(int)
     public abstract int getSelectedNavigationIndex()
     public abstract int getNavigationItemCount()
-    public abstract void setTitle(java.lang.CharSequence)
     public abstract void setTitle(int)
     public abstract void setSubtitle(java.lang.CharSequence)
     public abstract void setSubtitle(int)
@@ -2597,7 +2596,6 @@ android.support.v7.internal.app.ToolbarActionBar:
     214:222:public void setSelectedNavigationItem(int)
     226:226:public int getSelectedNavigationIndex()
     231:231:public int getNavigationItemCount()
-    236:237:public void setTitle(java.lang.CharSequence)
     241:242:public void setTitle(int)
     251:252:public void setSubtitle(java.lang.CharSequence)
     256:257:public void setSubtitle(int)
@@ -2656,7 +2654,6 @@ android.support.v7.internal.app.WindowDecorActionBar:
     412:423:public void setSelectedNavigationItem(int)
     426:427:public void removeAllTabs()
     430:438:private void cleanupTabs()
-    441:442:public void setTitle(java.lang.CharSequence)
     450:451:public void setSubtitle(java.lang.CharSequence)
     454:458:public void setDisplayOptions(int)
     469:470:public void setBackgroundDrawable(android.graphics.drawable.Drawable)
@@ -2926,7 +2923,6 @@ android.support.v7.internal.widget.DecorContentParent:
     public abstract void saveToolbarHierarchyState(android.util.SparseArray)
     public abstract void restoreToolbarHierarchyState(android.util.SparseArray)
 android.support.v7.internal.widget.DecorToolbar:
-    public abstract void setTitle(java.lang.CharSequence)
     public abstract java.lang.CharSequence getSubtitle()
     public abstract void setSubtitle(java.lang.CharSequence)
     public abstract boolean canSplit()
@@ -3288,7 +3284,6 @@ android.support.v7.widget.RecyclerView$Adapter:
     4673:4674:public final void notifyItemRangeChanged(int,int)
     4690:4691:public final void notifyItemInserted(int)
     4705:4706:public final void notifyItemMoved(int,int)
-    4741:4742:public final void notifyItemRemoved(int)
 android.support.v7.widget.RecyclerView$AdapterDataObservable:
     7893:7893:public boolean hasObservers()
     7911:7914:public void notifyItemRangeChanged(int,int)
@@ -8756,7 +8751,6 @@ com.malinskiy.superrecyclerview.SuperRecyclerView:
     328:331:public void showProgress()
     337:339:public void showRecycler()
     342:344:public void showMoreProgress()
-    347:349:public void hideMoreProgress()
     389:390:public void hideProgress()
     396:397:public void hideRecycler()
     414:415:public void addOnItemTouchListener(android.support.v7.widget.RecyclerView$OnItemTouchListener)
@@ -9482,8 +9476,13 @@ ng.codehaven.cdc.Constants:
     public static final java.lang.String APPLICATION_KEY
     public static final java.lang.String REST_KEY
     public static final java.lang.String BOOTSTRAP
+    public static final java.lang.String DRAWER_PREF
+    public static final java.lang.String DRAWER_OPEN_PREF
+    public static final java.lang.String DRAWER_SEEN_PREF
     public static final java.lang.String API_GET_ITEMS_URL
     public static final java.lang.String API_SEARCH_URL
+    public static final java.lang.String PROHIBITION_URL
+    public static final java.lang.String CEMA_URL
     public static final java.lang.String CET_CLASS
     3:3:public Constants()
 ng.codehaven.cdc.DetailsActivity:
@@ -9511,11 +9510,18 @@ ng.codehaven.cdc.R$xml
 ng.codehaven.cdc.adapters.CetListAdapter:
     73:75:public void insert(ng.codehaven.cdc.models.Item,int)
 ng.codehaven.cdc.adapters.CetListAdapter$ItemHolder:
-    104:104:public android.widget.RelativeLayout getmContainer()
-    108:108:public android.widget.TextView getmDescription()
-    112:112:public android.widget.TextView getmCetCode()
+    110:110:public android.widget.RelativeLayout getmContainer()
+    114:114:public android.widget.TextView getmDescription()
+    118:118:public android.widget.TextView getmCetCode()
+ng.codehaven.cdc.fragments.CalcResultFragment
 ng.codehaven.cdc.fragments.CalculatorFragment:
-    18:20:public static ng.codehaven.cdc.fragments.CalculatorFragment newInstance(android.os.Bundle)
+    private boolean checked
+    public static final int ID
+    public static final java.lang.String TITLE
+    25:27:public static ng.codehaven.cdc.fragments.CalculatorFragment newInstance(android.os.Bundle)
+ng.codehaven.cdc.fragments.CetListFragment:
+    public static final int ID
+    public static final java.lang.String TITLE
 ng.codehaven.cdc.fragments.DetailFragment:
     public static final java.lang.String ARG_ID
     public static final java.lang.String ARG_CET
@@ -9524,6 +9530,10 @@ ng.codehaven.cdc.fragments.DetailFragment:
     public static final java.lang.String ARG_VAT
     public static final java.lang.String ARG_LEVY
     public static final java.lang.String ARG_FAV
+ng.codehaven.cdc.fragments.FavoritesFragment:
+    public static final int ID
+    public static final java.lang.String TITLE
+    private ng.codehaven.cdc.services.GetItemsService mService
 ng.codehaven.cdc.interfaces.ListViewItemClick
 ng.codehaven.cdc.interfaces.ServerOperations
 ng.codehaven.cdc.services.GetItemsService:
@@ -9531,10 +9541,8 @@ ng.codehaven.cdc.services.GetItemsService:
 ng.codehaven.cdc.utils.Calculator:
     9:9:public Calculator()
 ng.codehaven.cdc.utils.Logger:
-    11:11:public Logger()
+    13:13:public Logger()
 ng.codehaven.cdc.utils.MD5
 ng.codehaven.cdc.utils.NumberTextWatcher:
     private static final java.lang.String TAG
-ng.codehaven.cdc.utils.SharedPrefUtil:
-    22:22:public android.content.SharedPreferences getSharedPref(java.lang.String,int)
 ng.codehaven.cdc.utils.debug

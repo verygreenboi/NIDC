@@ -21,7 +21,6 @@ import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.parse.ParseObject;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,21 +34,21 @@ import ng.codehaven.cdc.interfaces.ServiceCallbacks;
 import ng.codehaven.cdc.models.Item;
 import ng.codehaven.cdc.services.GetItemsService;
 import ng.codehaven.cdc.utils.AdsCreator;
-import ng.codehaven.cdc.utils.Logger;
 import ng.codehaven.cdc.utils.LoopItems;
 
 public class SearchResultsActivity extends ActionBarActivity implements
         CetListAdapter.ListHandler, ServiceCallbacks, ServiceConnection, SwipeRefreshLayout.OnRefreshListener {
+    @InjectView(R.id.cetList)
+    protected SuperRecyclerView mRecyclerView;
+    @InjectView(R.id.toolbar)
+    protected Toolbar mToolbar;
+    @InjectView(R.id.adView)
+    protected AdView mAdView;
     private String[] i;
     private GetItemsService mService;
     private CetListAdapter mAdapter;
     private LoopItems lp;
     private JSONObject searchObject;
-
-    @InjectView(R.id.cetList) protected SuperRecyclerView mRecyclerView;
-    @InjectView(R.id.toolbar) protected Toolbar mToolbar;
-    @InjectView(R.id.adView)
-    protected AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,6 +176,7 @@ public class SearchResultsActivity extends ActionBarActivity implements
     public void onMoreOperationComplete(List<ParseObject> items) {
         lp = new LoopItems(this, items);
         mAdapter.add(lp.getItems());
+        mRecyclerView.hideMoreProgress();
     }
 
     @Override
@@ -245,6 +245,11 @@ public class SearchResultsActivity extends ActionBarActivity implements
         Intent i = new Intent(this, DetailsActivity.class);
         i.putExtras(b);
         startActivity(i);
+
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
 
     }
 

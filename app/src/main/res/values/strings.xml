@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">IDC</string>
+    <string name="app_name">Nigeria Import Duty Calculator</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -26,9 +26,11 @@
         <item>Calculator</item>
         <item>List</item>
         <item>Favorites</item>
-        <item>Prohibited List</item>
-        <item>Duty Laws</item>
+        <item>Prohibition List</item>
+        <item>CEMA Laws</item>
     </string-array>
     <string name="title_activity_search_results">Search</string>
+    <string name="txt_naira">In Naira</string>
+    <string name="txt_dollars">In Dollars</string>
 
 </resources>

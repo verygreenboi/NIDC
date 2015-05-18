@@ -3589,6 +3589,7 @@ android.support.v4.widget.ViewDragHelper$Callback -> nf:
     int clampViewPositionHorizontal(android.view.View,int,int) -> a
     int clampViewPositionVertical(android.view.View,int,int) -> b
 android.support.v7.app.ActionBar -> android.support.v7.app.ActionBar:
+    void setTitle(java.lang.CharSequence) -> a
     void setDisplayHomeAsUpEnabled(boolean) -> a
     int getDisplayOptions() -> a
     void setHomeButtonEnabled(boolean) -> b
@@ -3605,7 +3606,7 @@ android.support.v7.app.ActionBar -> android.support.v7.app.ActionBar:
     boolean invalidateOptionsMenu() -> c
     boolean onKeyShortcut(int,android.view.KeyEvent) -> a
     boolean collapseActionView() -> d
-    void setWindowTitle(java.lang.CharSequence) -> a
+    void setWindowTitle(java.lang.CharSequence) -> b
 android.support.v7.app.ActionBar$LayoutParams -> android.support.v7.app.ActionBar$LayoutParams:
     int gravity -> a
 android.support.v7.app.ActionBar$OnMenuVisibilityListener -> ng:
@@ -5013,7 +5014,8 @@ android.support.v7.internal.app.ToolbarActionBar -> pb:
     void setShowHideAnimationEnabled(boolean) -> e
     void onConfigurationChanged(android.content.res.Configuration) -> a
     android.support.v7.view.ActionMode startActionMode(android.support.v7.view.ActionMode$Callback) -> a
-    void setWindowTitle(java.lang.CharSequence) -> a
+    void setTitle(java.lang.CharSequence) -> a
+    void setWindowTitle(java.lang.CharSequence) -> b
     void setDisplayOptions(int,int) -> a
     void setDisplayHomeAsUpEnabled(boolean) -> a
     int getDisplayOptions() -> a
@@ -5108,7 +5110,8 @@ android.support.v7.internal.app.WindowDecorActionBar -> pj:
     void dispatchMenuVisibilityChanged(boolean) -> f
     void setDisplayHomeAsUpEnabled(boolean) -> a
     void setHomeButtonEnabled(boolean) -> b
-    void setWindowTitle(java.lang.CharSequence) -> a
+    void setTitle(java.lang.CharSequence) -> a
+    void setWindowTitle(java.lang.CharSequence) -> b
     void setDisplayOptions(int,int) -> a
     int getNavigationMode() -> f
     int getDisplayOptions() -> a
@@ -6531,6 +6534,7 @@ android.support.v7.internal.widget.DecorToolbar -> sk:
     void setWindowCallback(android.support.v7.internal.app.WindowCallback) -> a
     void setWindowTitle(java.lang.CharSequence) -> a
     java.lang.CharSequence getTitle() -> f
+    void setTitle(java.lang.CharSequence) -> b
     void initProgress() -> g
     void initIndeterminateProgress() -> h
     void setIcon(int) -> a
@@ -8235,6 +8239,7 @@ android.support.v7.widget.RecyclerView$Adapter -> wi:
     void onDetachedFromRecyclerView(android.support.v7.widget.RecyclerView) -> b
     void notifyDataSetChanged() -> c
     void notifyItemRangeInserted(int,int) -> a
+    void notifyItemRemoved(int) -> c
     void notifyItemRangeRemoved(int,int) -> b
 android.support.v7.widget.RecyclerView$AdapterDataObservable -> wj:
     void notifyChanged() -> a
@@ -29103,12 +29108,13 @@ com.malinskiy.superrecyclerview.SuperRecyclerView -> com.malinskiy.superrecycler
     android.support.v4.widget.SwipeRefreshLayout getSwipeToRefresh() -> getSwipeToRefresh
     android.support.v7.widget.RecyclerView getRecyclerView() -> getRecyclerView
     void initAttrs(android.util.AttributeSet) -> a
-    void initView() -> a
+    void initView() -> b
     void initRecyclerView(android.view.View) -> a
     int findMax(int[]) -> a
     void setLayoutManager(android.support.v7.widget.RecyclerView$LayoutManager) -> setLayoutManager
     void setAdapter(android.support.v7.widget.RecyclerView$Adapter) -> setAdapter
     void setupSwipeToDismiss(com.malinskiy.superrecyclerview.swipe.SwipeDismissRecyclerViewTouchListener$DismissCallbacks) -> setupSwipeToDismiss
+    void hideMoreProgress() -> a
     void setRefreshListener(android.support.v4.widget.SwipeRefreshLayout$OnRefreshListener) -> setRefreshListener
     void setRefreshingColorResources(int,int,int,int) -> setRefreshingColorResources
     void setRefreshingColor(int,int,int,int) -> setRefreshingColor
@@ -35140,6 +35146,8 @@ io.realm.FavoriteRealmProxy -> io.realm.FavoriteRealmProxy:
     void setVat(int) -> setVat
     int getDuty() -> getDuty
     void setDuty(int) -> setDuty
+    java.util.Date getCreatedAt() -> getCreatedAt
+    void setCreatedAt(java.util.Date) -> setCreatedAt
     io.realm.internal.Table initTable(io.realm.internal.ImplicitTransaction) -> initTable
     void validateTable(io.realm.internal.ImplicitTransaction) -> validateTable
     java.util.List getFieldNames() -> getFieldNames
@@ -36784,16 +36792,21 @@ ng.codehaven.cdc.HomeActivity -> ng.codehaven.cdc.HomeActivity:
     android.support.v4.widget.DrawerLayout mDrawerLayout -> mDrawerLayout
     android.support.v7.widget.RecyclerView mMenuListLayout -> mMenuListLayout
     android.widget.FrameLayout mLeftLayout -> mLeftLayout
+    java.util.ArrayList mMenuList -> n
     android.widget.FrameLayout mDetailsLayout -> o
     ng.codehaven.cdc.adapters.MenuListAdapter mMenuAdapter -> p
     java.lang.String[] mMenuItems -> q
-    java.util.ArrayList mMenuList -> n
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle -> r
-    int oldPosition -> s
-    android.support.v4.app.FragmentManager fm -> t
+    boolean mDrawerOpened -> s
+    boolean mDrawerSeen -> t
+    ng.codehaven.cdc.utils.SharedPrefUtil mSharedPrefUtil -> u
+    int oldPosition -> v
+    android.support.v4.app.FragmentManager fm -> w
     void onCreate(android.os.Bundle) -> onCreate
     void onPostCreate(android.os.Bundle) -> onPostCreate
     void onStart() -> onStart
+    void onResume() -> onResume
+    void onPause() -> onPause
     void onStop() -> onStop
     void loadFragment(int,android.support.v4.app.Fragment) -> a
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
@@ -36803,6 +36816,11 @@ ng.codehaven.cdc.HomeActivity -> ng.codehaven.cdc.HomeActivity:
     void sendItemUp(ng.codehaven.cdc.models.Item) -> a
     void handleCalculateClick(android.os.Bundle) -> a
     void itemSelected(int) -> a
+    void getId(int) -> b
+    void getTitle(java.lang.String) -> b
+    void doCalc(android.os.Bundle) -> b
+    boolean access$002(ng.codehaven.cdc.HomeActivity,boolean) -> a
+    boolean access$102(ng.codehaven.cdc.HomeActivity,boolean) -> b
 ng.codehaven.cdc.HomeActivity$$ViewInjector -> ng.codehaven.cdc.HomeActivity$$ViewInjector:
     void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.HomeActivity,java.lang.Object) -> inject
     void reset(ng.codehaven.cdc.HomeActivity) -> reset
@@ -36842,6 +36860,7 @@ ng.codehaven.cdc.SearchResultsActivity -> ng.codehaven.cdc.SearchResultsActivity
     void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
     void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
     void onTitleClick(android.view.View,ng.codehaven.cdc.models.Item) -> a
+    void onItemLongClick(int) -> b
     void onRefresh() -> f_
     ng.codehaven.cdc.services.GetItemsService access$000(ng.codehaven.cdc.SearchResultsActivity) -> a
     ng.codehaven.cdc.adapters.CetListAdapter access$100(ng.codehaven.cdc.SearchResultsActivity) -> b
@@ -36865,9 +36884,10 @@ ng.codehaven.cdc.adapters.CetListAdapter -> cxb:
     void add(java.util.List) -> a
     void SetOnItemClickListener(ng.codehaven.cdc.adapters.CetListAdapter$ListHandler) -> a
     void clear() -> d
+    void remove(int) -> d
     java.util.List access$000(ng.codehaven.cdc.adapters.CetListAdapter) -> a
-    ng.codehaven.cdc.models.Item access$100(ng.codehaven.cdc.adapters.CetListAdapter) -> b
-    ng.codehaven.cdc.adapters.CetListAdapter$ListHandler access$200(ng.codehaven.cdc.adapters.CetListAdapter) -> c
+    ng.codehaven.cdc.adapters.CetListAdapter$ListHandler access$100(ng.codehaven.cdc.adapters.CetListAdapter) -> b
+    ng.codehaven.cdc.models.Item access$200(ng.codehaven.cdc.adapters.CetListAdapter) -> c
 ng.codehaven.cdc.adapters.CetListAdapter$ItemHolder -> cxc:
     android.widget.TextView mDescription -> j
     android.widget.TextView mCetCode -> k
@@ -36879,6 +36899,7 @@ ng.codehaven.cdc.adapters.CetListAdapter$ItemHolder -> cxc:
     void onClick(android.view.View) -> onClick
 ng.codehaven.cdc.adapters.CetListAdapter$ListHandler -> cxd:
     void onTitleClick(android.view.View,ng.codehaven.cdc.models.Item) -> a
+    void onItemLongClick(int) -> b
 ng.codehaven.cdc.adapters.MenuListAdapter -> ng.codehaven.cdc.adapters.MenuListAdapter:
     android.content.Context c -> a
     java.util.ArrayList mMenu -> b
@@ -36933,15 +36954,44 @@ ng.codehaven.cdc.fragments.AddCalculateVariablesDialog$2 -> cxg:
 ng.codehaven.cdc.fragments.AddCalculateVariablesDialog$DialogActions -> cxh:
     void onCancel() -> k
     void onCalculate(int,int,int,boolean) -> a
-ng.codehaven.cdc.fragments.CalculatorFragment -> cxi:
+ng.codehaven.cdc.fragments.CalculatorFragment -> ng.codehaven.cdc.fragments.CalculatorFragment:
+    android.widget.RadioButton mNairaBtn -> mNairaBtn
+    android.widget.RadioButton mDollarBtn -> mDollarBtn
+    android.widget.EditText mExchange -> mExchange
+    android.widget.EditText mFOB -> mFOB
+    android.widget.EditText mCIF -> mCIF
+    android.widget.EditText mDuty -> mDuty
+    android.widget.EditText mLevy -> mLevy
+    android.widget.EditText mVAT -> mVAT
+    android.widget.Button mCalcBtn -> mCalcBtn
+    boolean isDollars -> a
+    ng.codehaven.cdc.interfaces.FragmentIdentity handler -> b
+    ng.codehaven.cdc.fragments.CalculatorFragment$doCalculate calc -> c
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onResume() -> r
+    void onAttach(android.app.Activity) -> a
+    void onRadioButtonClicked(android.view.View) -> a
+    void onClick(android.view.View) -> onClick
+    void doCalcSubmit() -> a
+    android.os.Bundle getBundle() -> b
+    int getLevy() -> c
+    int getVAT() -> N
+    int getDuty() -> O
+    int getCIF() -> P
+    int getFob() -> Q
+    int getXr() -> R
+ng.codehaven.cdc.fragments.CalculatorFragment$$ViewInjector -> ng.codehaven.cdc.fragments.CalculatorFragment$$ViewInjector:
+    void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.CalculatorFragment,java.lang.Object) -> inject
+    void reset(ng.codehaven.cdc.fragments.CalculatorFragment) -> reset
+ng.codehaven.cdc.fragments.CalculatorFragment$doCalculate -> cxi:
+    void doCalc(android.os.Bundle) -> b
 ng.codehaven.cdc.fragments.CetListFragment -> cxj:
     com.malinskiy.superrecyclerview.SuperRecyclerView mRecycler -> a
     ng.codehaven.cdc.adapters.CetListAdapter mAdapter -> b
     ng.codehaven.cdc.services.GetItemsService mService -> c
     ng.codehaven.cdc.fragments.CetListFragment$bubbleItemUp handler -> d
     ng.codehaven.cdc.utils.LoopItems lp -> e
+    ng.codehaven.cdc.interfaces.FragmentIdentity identity -> f
     void onCreate(android.os.Bundle) -> a
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onResume() -> r
@@ -36950,6 +37000,7 @@ ng.codehaven.cdc.fragments.CetListFragment -> cxj:
     void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
     boolean onOptionsItemSelected(android.view.MenuItem) -> a
     void onTitleClick(android.view.View,ng.codehaven.cdc.models.Item) -> a
+    void onItemLongClick(int) -> b
     void onRefresh() -> f_
     void onOperationProgress(int) -> a
     void onOperationCompleted(java.util.List) -> a
@@ -36991,8 +37042,22 @@ ng.codehaven.cdc.fragments.DetailFragment$$ViewInjector -> ng.codehaven.cdc.frag
     void reset(ng.codehaven.cdc.fragments.DetailFragment) -> reset
 ng.codehaven.cdc.fragments.DetailFragment$doCalculate -> cxm:
     void handleCalculateClick(android.os.Bundle) -> a
-ng.codehaven.cdc.fragments.FavoritesFragment -> cxn:
+ng.codehaven.cdc.fragments.FavoritesFragment -> ng.codehaven.cdc.fragments.FavoritesFragment:
+    java.util.List i -> a
+    ng.codehaven.cdc.utils.LoopItems lp -> b
+    ng.codehaven.cdc.interfaces.FragmentIdentity identity -> c
+    ng.codehaven.cdc.fragments.CetListFragment$bubbleItemUp handler -> d
+    ng.codehaven.cdc.adapters.CetListAdapter mAdapter -> e
+    com.malinskiy.superrecyclerview.SuperRecyclerView mRecycler -> mRecycler
+    void onCreate(android.os.Bundle) -> a
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onResume() -> r
+    void onAttach(android.app.Activity) -> a
+    void onTitleClick(android.view.View,ng.codehaven.cdc.models.Item) -> a
+    void onItemLongClick(int) -> b
+ng.codehaven.cdc.fragments.FavoritesFragment$$ViewInjector -> ng.codehaven.cdc.fragments.FavoritesFragment$$ViewInjector:
+    void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.FavoritesFragment,java.lang.Object) -> inject
+    void reset(ng.codehaven.cdc.fragments.FavoritesFragment) -> reset
 ng.codehaven.cdc.fragments.ResultFragment -> ng.codehaven.cdc.fragments.ResultFragment:
     android.widget.TextView mDuty -> mDuty
     android.widget.TextView mSurcharge -> mSurcharge
@@ -37015,6 +37080,20 @@ ng.codehaven.cdc.fragments.ResultFragment -> ng.codehaven.cdc.fragments.ResultFr
 ng.codehaven.cdc.fragments.ResultFragment$$ViewInjector -> ng.codehaven.cdc.fragments.ResultFragment$$ViewInjector:
     void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.ResultFragment,java.lang.Object) -> inject
     void reset(ng.codehaven.cdc.fragments.ResultFragment) -> reset
+ng.codehaven.cdc.fragments.WebViewFragment -> ng.codehaven.cdc.fragments.WebViewFragment:
+    ng.codehaven.cdc.interfaces.FragmentIdentity handler -> a
+    java.lang.String mURL -> b
+    android.webkit.WebView mWebView -> mWebView
+    ng.codehaven.cdc.fragments.WebViewFragment newInstance(android.os.Bundle) -> c
+    void onCreate(android.os.Bundle) -> a
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void onAttach(android.app.Activity) -> a
+ng.codehaven.cdc.fragments.WebViewFragment$$ViewInjector -> ng.codehaven.cdc.fragments.WebViewFragment$$ViewInjector:
+    void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.WebViewFragment,java.lang.Object) -> inject
+    void reset(ng.codehaven.cdc.fragments.WebViewFragment) -> reset
+ng.codehaven.cdc.interfaces.FragmentIdentity -> cxn:
+    void getId(int) -> b
+    void getTitle(java.lang.String) -> b
 ng.codehaven.cdc.interfaces.ServiceCallbacks -> cxo:
     void onOperationProgress(int) -> a
     void onOperationCompleted(java.util.List) -> a
@@ -37028,6 +37107,9 @@ ng.codehaven.cdc.models.Favorite -> ng.codehaven.cdc.models.Favorite:
     int levy -> levy
     int vat -> vat
     int duty -> duty
+    java.util.Date createdAt -> createdAt
+    java.util.Date getCreatedAt() -> getCreatedAt
+    void setCreatedAt(java.util.Date) -> setCreatedAt
     java.lang.String getObjectId() -> getObjectId
     void setObjectId(java.lang.String) -> setObjectId
     java.lang.String getCet() -> getCet
@@ -37170,7 +37252,17 @@ ng.codehaven.cdc.utils.Calculator -> cxu:
     double VAT(double,double,double,double) -> a
     double total(double,double,double,double) -> b
     double[] calculate(double,double,double,double) -> c
-    android.os.Bundle getDuties(android.os.Bundle) -> a
+    android.os.Bundle calDuties(android.os.Bundle) -> a
+    int getTotal(int,int,int,int,int,int) -> a
+    int getVat(int,int,int,int,int,int) -> b
+    int getLevy(int,int) -> a
+    int getCISS(int) -> a
+    int getFob(int,int,boolean) -> a
+    int getETLS(int) -> b
+    int getSurcharge(int) -> c
+    int getDuty(int,int) -> b
+    int getCif(int,int,boolean) -> b
+    android.os.Bundle getDuties(android.os.Bundle) -> b
 ng.codehaven.cdc.utils.DoServerOperations -> cxv:
     java.lang.String order -> a
     int limit -> b
@@ -37187,7 +37279,9 @@ ng.codehaven.cdc.utils.LoopItems -> cxx:
     java.util.List mItems -> a
     java.util.List i -> b
     android.content.Context mContext -> c
+    io.realm.RealmResults favorites -> d
     java.util.List getItems() -> a
+    java.util.List getItemsFromFavorite() -> b
 ng.codehaven.cdc.utils.NumberTextWatcher -> cxy:
     java.text.DecimalFormat df -> a
     java.text.DecimalFormat dfnd -> b
@@ -37198,4 +37292,5 @@ ng.codehaven.cdc.utils.NumberTextWatcher -> cxy:
     void afterTextChanged(android.text.Editable) -> afterTextChanged
 ng.codehaven.cdc.utils.SharedPrefUtil -> cxz:
     android.content.Context mContext -> a
+    android.content.SharedPreferences getSharedPref(java.lang.String,int) -> a
     boolean getBool(java.lang.String) -> a

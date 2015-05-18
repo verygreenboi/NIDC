@@ -1,13 +1,23 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ng.codehaven.cdc.fragments.FavoritesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.malinskiy.superrecyclerview.SuperRecyclerView
+        android:id="@+id/cetList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        app:layout_empty="@layout/empty_fav_view"
+        app:layout_moreProgress="@layout/view_more_progress"
+        app:recyclerClipToPadding="false"
+        app:scrollbarStyle="outsideOverlay" />
 
 </FrameLayout>

@@ -19,11 +19,21 @@ public class Constants {
 
     public static final String BOOTSTRAP = "bootstraped";
 
+    public static final String DRAWER_PREF = "drwOpnPref";
+
+    public static final String DRAWER_OPEN_PREF = "drwOpn";
+
+    public static final String DRAWER_SEEN_PREF = "drwSeen";
+
     public static final String API_GET_ITEMS_URL = "https://api.parse.com/1/functions/getitems";
+
     public static final String API_SEARCH_URL = "https://api.parse.com/1/classes/CET_tariff";
 
-    public static final String CET_CLASS = "CET_tariff";
+    public static final String PROHIBITION_URL = "http://nidc.ng/prohibition";
 
+    public static final String CEMA_URL = "http://nidc.ng/cema";
+
+    public static final String CET_CLASS = "CET_tariff";
     public static final int[] MENU_IMGS = {
             R.drawable.ic_note_add_white,
             R.drawable.ic_list_white,

@@ -74,8 +74,15 @@ public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         notifyItemInserted(position);
     }
 
+    public void remove(int position) {
+        items.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public interface ListHandler {
         void onTitleClick(View v, Item item);
+
+        void onItemLongClick(int position);
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
@@ -134,6 +141,8 @@ public class CetListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             mFav.setChecked(!checked);
             i.setFavorite(!checked);
+
+            lh.onItemLongClick(pos);
 
             return true;
         }

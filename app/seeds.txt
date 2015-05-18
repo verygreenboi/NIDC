@@ -13153,6 +13153,8 @@ io.realm.FavoriteRealmProxy: int getVat()
 io.realm.FavoriteRealmProxy: void setVat(int)
 io.realm.FavoriteRealmProxy: int getDuty()
 io.realm.FavoriteRealmProxy: void setDuty(int)
+io.realm.FavoriteRealmProxy: java.util.Date getCreatedAt()
+io.realm.FavoriteRealmProxy: void setCreatedAt(java.util.Date)
 io.realm.FavoriteRealmProxy: io.realm.internal.Table initTable(io.realm.internal.ImplicitTransaction)
 io.realm.FavoriteRealmProxy: void validateTable(io.realm.internal.ImplicitTransaction)
 io.realm.FavoriteRealmProxy: java.util.List getFieldNames()
@@ -15488,6 +15490,7 @@ ng.codehaven.cdc.R$id: int always
 ng.codehaven.cdc.R$id: int beginning
 ng.codehaven.cdc.R$id: int book_now
 ng.codehaven.cdc.R$id: int bottom
+ng.codehaven.cdc.R$id: int btn_calculate
 ng.codehaven.cdc.R$id: int buyButton
 ng.codehaven.cdc.R$id: int buy_now
 ng.codehaven.cdc.R$id: int buy_with_google
@@ -15509,6 +15512,7 @@ ng.codehaven.cdc.R$id: int details
 ng.codehaven.cdc.R$id: int details_container
 ng.codehaven.cdc.R$id: int dialog
 ng.codehaven.cdc.R$id: int disableHome
+ng.codehaven.cdc.R$id: int dollars
 ng.codehaven.cdc.R$id: int donate_with_google
 ng.codehaven.cdc.R$id: int drawerLayout
 ng.codehaven.cdc.R$id: int dropdown
@@ -15519,6 +15523,7 @@ ng.codehaven.cdc.R$id: int end
 ng.codehaven.cdc.R$id: int etSearch
 ng.codehaven.cdc.R$id: int etls
 ng.codehaven.cdc.R$id: int exchangeCurrencyLabel
+ng.codehaven.cdc.R$id: int exchangeRate
 ng.codehaven.cdc.R$id: int expand_activities_button
 ng.codehaven.cdc.R$id: int expanded_menu
 ng.codehaven.cdc.R$id: int fav
@@ -15551,6 +15556,7 @@ ng.codehaven.cdc.R$id: int meta
 ng.codehaven.cdc.R$id: int middle
 ng.codehaven.cdc.R$id: int monochrome
 ng.codehaven.cdc.R$id: int more_progress
+ng.codehaven.cdc.R$id: int naira
 ng.codehaven.cdc.R$id: int navdrawer_items_list
 ng.codehaven.cdc.R$id: int never
 ng.codehaven.cdc.R$id: int none
@@ -15563,6 +15569,7 @@ ng.codehaven.cdc.R$id: int progress_horizontal
 ng.codehaven.cdc.R$id: int ptr_layout
 ng.codehaven.cdc.R$id: int pull_out
 ng.codehaven.cdc.R$id: int radio
+ng.codehaven.cdc.R$id: int radioGroup
 ng.codehaven.cdc.R$id: int rate
 ng.codehaven.cdc.R$id: int rateSwitch
 ng.codehaven.cdc.R$id: int recyclerview_swipe
@@ -15600,6 +15607,7 @@ ng.codehaven.cdc.R$id: int up
 ng.codehaven.cdc.R$id: int useLogo
 ng.codehaven.cdc.R$id: int vat
 ng.codehaven.cdc.R$id: int vatLabel
+ng.codehaven.cdc.R$id: int webview
 ng.codehaven.cdc.R$id: int withText
 ng.codehaven.cdc.R$id: int wrap_content
 ng.codehaven.cdc.R$integer: int abc_config_activityDefaultDur
@@ -15634,11 +15642,14 @@ ng.codehaven.cdc.R$layout: int activity_search_results
 ng.codehaven.cdc.R$layout: int cet_item
 ng.codehaven.cdc.R$layout: int dialog_calculate
 ng.codehaven.cdc.R$layout: int empty_business_view
+ng.codehaven.cdc.R$layout: int empty_fav_view
+ng.codehaven.cdc.R$layout: int fragment_calc_result
 ng.codehaven.cdc.R$layout: int fragment_calculator
 ng.codehaven.cdc.R$layout: int fragment_cet_list
 ng.codehaven.cdc.R$layout: int fragment_detail_fragnent
 ng.codehaven.cdc.R$layout: int fragment_favorites
 ng.codehaven.cdc.R$layout: int fragment_result
+ng.codehaven.cdc.R$layout: int fragment_web_view
 ng.codehaven.cdc.R$layout: int idc_tab_indicator_holo
 ng.codehaven.cdc.R$layout: int layout_more_progress
 ng.codehaven.cdc.R$layout: int layout_progress
@@ -15728,6 +15739,8 @@ ng.codehaven.cdc.R$string: int store_picture_message
 ng.codehaven.cdc.R$string: int store_picture_title
 ng.codehaven.cdc.R$string: int title_activity_details
 ng.codehaven.cdc.R$string: int title_activity_search_results
+ng.codehaven.cdc.R$string: int txt_dollars
+ng.codehaven.cdc.R$string: int txt_naira
 ng.codehaven.cdc.R$string: int wallet_buy_button_place_holder
 ng.codehaven.cdc.R$style: int Animation_AppCompat_DropDownUp
 ng.codehaven.cdc.R$style: int AppTheme
@@ -16368,6 +16381,20 @@ ng.codehaven.cdc.fragments.AddCalculateVariablesDialog$$ViewInjector
 ng.codehaven.cdc.fragments.AddCalculateVariablesDialog$$ViewInjector: AddCalculateVariablesDialog$$ViewInjector()
 ng.codehaven.cdc.fragments.AddCalculateVariablesDialog$$ViewInjector: void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.AddCalculateVariablesDialog,java.lang.Object)
 ng.codehaven.cdc.fragments.AddCalculateVariablesDialog$$ViewInjector: void reset(ng.codehaven.cdc.fragments.AddCalculateVariablesDialog)
+ng.codehaven.cdc.fragments.CalculatorFragment
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.RadioButton mNairaBtn
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.RadioButton mDollarBtn
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.EditText mExchange
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.EditText mFOB
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.EditText mCIF
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.EditText mDuty
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.EditText mLevy
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.EditText mVAT
+ng.codehaven.cdc.fragments.CalculatorFragment: android.widget.Button mCalcBtn
+ng.codehaven.cdc.fragments.CalculatorFragment$$ViewInjector
+ng.codehaven.cdc.fragments.CalculatorFragment$$ViewInjector: CalculatorFragment$$ViewInjector()
+ng.codehaven.cdc.fragments.CalculatorFragment$$ViewInjector: void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.CalculatorFragment,java.lang.Object)
+ng.codehaven.cdc.fragments.CalculatorFragment$$ViewInjector: void reset(ng.codehaven.cdc.fragments.CalculatorFragment)
 ng.codehaven.cdc.fragments.DetailFragment
 ng.codehaven.cdc.fragments.DetailFragment: android.widget.TextView mImportDutyView
 ng.codehaven.cdc.fragments.DetailFragment: android.widget.TextView mVATView
@@ -16377,6 +16404,12 @@ ng.codehaven.cdc.fragments.DetailFragment$$ViewInjector
 ng.codehaven.cdc.fragments.DetailFragment$$ViewInjector: DetailFragment$$ViewInjector()
 ng.codehaven.cdc.fragments.DetailFragment$$ViewInjector: void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.DetailFragment,java.lang.Object)
 ng.codehaven.cdc.fragments.DetailFragment$$ViewInjector: void reset(ng.codehaven.cdc.fragments.DetailFragment)
+ng.codehaven.cdc.fragments.FavoritesFragment
+ng.codehaven.cdc.fragments.FavoritesFragment: com.malinskiy.superrecyclerview.SuperRecyclerView mRecycler
+ng.codehaven.cdc.fragments.FavoritesFragment$$ViewInjector
+ng.codehaven.cdc.fragments.FavoritesFragment$$ViewInjector: FavoritesFragment$$ViewInjector()
+ng.codehaven.cdc.fragments.FavoritesFragment$$ViewInjector: void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.FavoritesFragment,java.lang.Object)
+ng.codehaven.cdc.fragments.FavoritesFragment$$ViewInjector: void reset(ng.codehaven.cdc.fragments.FavoritesFragment)
 ng.codehaven.cdc.fragments.ResultFragment
 ng.codehaven.cdc.fragments.ResultFragment: android.widget.TextView mDuty
 ng.codehaven.cdc.fragments.ResultFragment: android.widget.TextView mSurcharge
@@ -16389,6 +16422,12 @@ ng.codehaven.cdc.fragments.ResultFragment$$ViewInjector
 ng.codehaven.cdc.fragments.ResultFragment$$ViewInjector: ResultFragment$$ViewInjector()
 ng.codehaven.cdc.fragments.ResultFragment$$ViewInjector: void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.ResultFragment,java.lang.Object)
 ng.codehaven.cdc.fragments.ResultFragment$$ViewInjector: void reset(ng.codehaven.cdc.fragments.ResultFragment)
+ng.codehaven.cdc.fragments.WebViewFragment
+ng.codehaven.cdc.fragments.WebViewFragment: android.webkit.WebView mWebView
+ng.codehaven.cdc.fragments.WebViewFragment$$ViewInjector
+ng.codehaven.cdc.fragments.WebViewFragment$$ViewInjector: WebViewFragment$$ViewInjector()
+ng.codehaven.cdc.fragments.WebViewFragment$$ViewInjector: void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.WebViewFragment,java.lang.Object)
+ng.codehaven.cdc.fragments.WebViewFragment$$ViewInjector: void reset(ng.codehaven.cdc.fragments.WebViewFragment)
 ng.codehaven.cdc.models.Favorite
 ng.codehaven.cdc.models.Favorite: java.lang.String objectId
 ng.codehaven.cdc.models.Favorite: java.lang.String cet
@@ -16396,7 +16435,10 @@ ng.codehaven.cdc.models.Favorite: java.lang.String description
 ng.codehaven.cdc.models.Favorite: int levy
 ng.codehaven.cdc.models.Favorite: int vat
 ng.codehaven.cdc.models.Favorite: int duty
+ng.codehaven.cdc.models.Favorite: java.util.Date createdAt
 ng.codehaven.cdc.models.Favorite: Favorite()
+ng.codehaven.cdc.models.Favorite: java.util.Date getCreatedAt()
+ng.codehaven.cdc.models.Favorite: void setCreatedAt(java.util.Date)
 ng.codehaven.cdc.models.Favorite: java.lang.String getObjectId()
 ng.codehaven.cdc.models.Favorite: void setObjectId(java.lang.String)
 ng.codehaven.cdc.models.Favorite: java.lang.String getCet()

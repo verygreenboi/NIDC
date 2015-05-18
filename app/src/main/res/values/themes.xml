@@ -5,6 +5,11 @@
     <style name="AppTheme" parent="_idc_blue" />
 
     <style name="_idc_blue" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorAccent">@color/primaryAlt</item>
+
         <item name="android:editTextBackground">@drawable/idc_edit_text_holo_light</item>
 
         <item name="android:textColorHighlight">#992196f3</item>
