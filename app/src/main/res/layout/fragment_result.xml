@@ -8,131 +8,132 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingEnd="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_vertical_margin"
-        android:paddingStart="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_vertical_margin"
-        android:paddingEnd="@dimen/activity_vertical_margin">
+        android:paddingStart="@dimen/activity_vertical_margin">
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:text="DUTY"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:textSize="16sp"
-            android:textColor="@color/primary" />
+            android:textColor="@color/primary"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/duty"
+            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Body1"
             android:text="Duty" />
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SURCHARGE"
             android:layout_marginTop="8dp"
+            android:text="SURCHARGE"
             android:textColor="@color/primary"
-            style="@style/TextAppearance.AppCompat.Title"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/surcharge"
+            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Body1"
             android:text="Surcharge" />
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ETLS"
             android:layout_marginTop="8dp"
+            android:text="ETLS"
             android:textColor="@color/primary"
-            style="@style/TextAppearance.AppCompat.Title"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/etls"
+            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Body1"
             android:text="ETLS" />
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CISS"
             android:layout_marginTop="8dp"
+            android:text="CISS"
             android:textColor="@color/primary"
-            style="@style/TextAppearance.AppCompat.Title"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/ciss"
+            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Body1" />
+            android:layout_marginTop="8dp" />
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LEVY"
             android:layout_marginTop="8dp"
+            android:text="LEVY"
             android:textColor="@color/primary"
-            style="@style/TextAppearance.AppCompat.Title"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/levy"
+            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Body1"
             android:text="Levy" />
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="VAT"
             android:textColor="@color/primary"
-            android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Title"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/vat"
+            style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/TextAppearance.AppCompat.Body1"/>
+            android:layout_marginTop="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin">
+            android:orientation="horizontal">
 
             <TextView
+                style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TOTAL:"
-                android:textColor="@color/primary"
-                style="@style/TextAppearance.AppCompat.Headline" />
+                android:textColor="@color/primary" />
 
             <TextView
                 android:id="@+id/total"
+                style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/TextAppearance.AppCompat.Title" />
+                android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package ng.codehaven.cdc.fragments;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import java.util.Locale;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ng.codehaven.cdc.R;
+import ng.codehaven.cdc.utils.Logger;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +24,8 @@ import ng.codehaven.cdc.R;
  */
 public class ResultFragment extends Fragment {
 
+    private static final int ID = -2;
+    private static final String TITLE = "RESULT";
     @InjectView(R.id.duty)
     protected TextView mDuty;
     @InjectView(R.id.surcharge)
@@ -44,15 +48,6 @@ public class ResultFragment extends Fragment {
     public ResultFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param b Item Result Bundle.
-     * @return A new instance of fragment ResultFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ResultFragment newInstance(Bundle b) {
         ResultFragment fragment = new ResultFragment();
         fragment.setArguments(b);
@@ -65,14 +60,16 @@ public class ResultFragment extends Fragment {
         if (getArguments() != null) {
             Bundle b = getArguments();
 
-            mDutyString = formatNumber(b.getInt("dutyResult"));
-            mSurchargeString = formatNumber(b.getInt("surchargeResult"));
-            mETLSString = formatNumber(b.getInt("etlsResult"));
-            mCISSString = formatNumber(b.getInt("cissResult"));
-            mLevyString = formatNumber(b.getInt("levyResult"));
-            mVATString = formatNumber(b.getInt("vatResult"));
+            Logger.m(b.toString());
 
-            mTotalString = formatNumber(b.getInt("totalResult"));
+            mDutyString = formatNumber(Double.parseDouble(b.getString("dutyResult")));
+            mSurchargeString = formatNumber(Double.parseDouble(b.getString("surchargeResult")));
+            mETLSString = formatNumber(Double.parseDouble(b.getString("etlsResult")));
+            mCISSString = formatNumber(Double.parseDouble(b.getString("cissResult")));
+            mLevyString = formatNumber(Double.parseDouble(b.getString("levyResult")));
+            mVATString = formatNumber(Double.parseDouble(b.getString("vatResult")));
+
+            mTotalString = formatNumber(Double.parseDouble(b.getString("totalResult")));
 
         } else {
             getActivity().finish();
@@ -98,7 +95,17 @@ public class ResultFragment extends Fragment {
         return v;
     }
 
-    public String formatNumber(int n) {
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    public String formatNumber(double n) {
         Locale nigeria = new Locale("en", "NG");
         NumberFormat formatter = NumberFormat.getCurrencyInstance(nigeria);
 

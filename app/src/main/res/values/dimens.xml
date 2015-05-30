@@ -7,6 +7,8 @@
     <dimen name="textSizeSmall">13sp</dimen>
     <dimen name="textSizeMedium">15sp</dimen>
 
+    <integer name="ems">10</integer>
+
 
     <dimen name="navdrawer_width">300dp</dimen>
     <dimen name="keyline_1">16dp</dimen>
@@ -14,4 +16,14 @@
     <dimen name="keyline_2">72dp</dimen>
     <dimen name="keyline_2_minus_16dp">56dp</dimen>
     <dimen name="keyline_2_session_detail">@dimen/keyline_2</dimen>
+
+    <dimen name="btn_flat_corner_radius">1dp</dimen>
+    <dimen name="btn_flat_min_width">88dp</dimen>
+    <dimen name="btn_flat_min_height">36dp</dimen>
+    <dimen name="btn_flat_padding">8dp</dimen>
+    <dimen name="btn_flat_margin">4dp</dimen>
+
+    <dimen name="corner_radius">4dp</dimen>
+    <dimen name="layer_padding">3dp</dimen>
+
 </resources>

@@ -8,14 +8,14 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.Optional;
 import ng.codehaven.cdc.adapters.MenuListAdapter;
 import ng.codehaven.cdc.fragments.CalculatorFragment;
 import ng.codehaven.cdc.fragments.CetListFragment;
@@ -45,7 +46,7 @@ import ng.codehaven.cdc.utils.Logger;
 import ng.codehaven.cdc.utils.SharedPrefUtil;
 
 
-public class HomeActivity extends ActionBarActivity implements View.OnClickListener,
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener,
         CetListFragment.bubbleItemUp, DetailFragment.doCalculate, MenuListAdapter.MenuSelected, FragmentIdentity, CalculatorFragment.doCalculate {
 
     @InjectView(R.id.container)
@@ -56,10 +57,13 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     @InjectView(R.id.toolbar)
     protected Toolbar mToolbar;
 
+    @Optional
     @InjectView(R.id.drawerLayout)
     protected DrawerLayout mDrawerLayout;
+    @Optional
     @InjectView(R.id.navdrawer_items_list)
     protected RecyclerView mMenuListLayout;
+    @Optional
     @InjectView(R.id.left_layout)
     protected FrameLayout mLeftLayout;
 
@@ -77,8 +81,14 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
 
     private FragmentManager fm;
 
+    private boolean isLarge;
+    private Bundle mCalcResult;
+    private int mCurrentFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        isLarge = getResources().getBoolean(R.bool.isLarge);
 
         if (BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -93,13 +103,15 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
 
         mSharedPrefUtil = new SharedPrefUtil(this);
 
+        setSupportActionBar(mToolbar);
+
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         SharedPreferences sp = mSharedPrefUtil.getSharedPref(Constants.DRAWER_PREF, Context.MODE_PRIVATE);
         mDrawerOpened = sp.getBoolean(Constants.DRAWER_OPEN_PREF, false);
         mDrawerSeen = sp.getBoolean(Constants.DRAWER_SEEN_PREF, false);
 
-        setSupportActionBar(mToolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Get a Tracker (should auto-report)
         ((App) getApplication()).getTracker(App.TrackerName.APP_TRACKER);
@@ -117,10 +129,27 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
 
         mMenuAdapter = new MenuListAdapter(this, mMenuList);
         mMenuAdapter.SetOnMenuSelected(this);
-        mMenuListLayout.setLayoutManager(new LinearLayoutManager(this));
-        mMenuListLayout.setAdapter(mMenuAdapter);
 
-        mDetailsLayout = (FrameLayout) findViewById(R.id.details_container);
+        setupNavDrawer();
+
+        loadFragment(mContainer.getId(), new CalculatorFragment());
+
+        AdsCreator adsCreator = new AdsCreator(this);
+        AdRequest adRequest = adsCreator.adRequest();
+        mAdView.loadAd(adRequest);
+
+//        if (savedInstanceState == null) {
+//            loadFragment(mContainer.getId(), new CalculatorFragment());
+//        } else {
+//            if (savedInstanceState.getInt("savedFrag") == -2){
+//                loadFragment(mContainer.getId(), ResultFragment.newInstance(savedInstanceState));
+//            }
+//        }
+
+    }
+
+    private void setupNavDrawer() {
+//        mDetailsLayout = (FrameLayout) findViewById(R.id.details_container);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -139,14 +168,8 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-//        mDrawerLayout.openDrawer(Gravity.START);
-
-        loadFragment(mContainer.getId(), new CalculatorFragment());
-
-        AdsCreator adsCreator = new AdsCreator(this);
-        AdRequest adRequest = adsCreator.adRequest();
-        mAdView.loadAd(adRequest);
+        mMenuListLayout.setLayoutManager(new LinearLayoutManager(this));
+        mMenuListLayout.setAdapter(mMenuAdapter);
     }
 
     @Override
@@ -166,7 +189,7 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         if (!mDrawerOpened && !mDrawerSeen) {
-            mDrawerLayout.openDrawer(Gravity.START);
+            mDrawerLayout.openDrawer(GravityCompat.START);
         }
     }
 
@@ -318,10 +341,29 @@ public class HomeActivity extends ActionBarActivity implements View.OnClickListe
         mMenuList.get(i).setIsSelected(true);
         mMenuAdapter.setSelectedItem(i, mMenuList);
         oldPosition = i;
+
+        if (isLarge) {
+            switch (i) {
+                case 0:
+                    // TODO: hide details
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override
     public void getTitle(String s) {
+        assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(s);
     }
 

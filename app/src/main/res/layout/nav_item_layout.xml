@@ -8,26 +8,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="start|center_vertical"
+        android:orientation="horizontal"
         android:paddingLeft="@dimen/keyline_1"
-        android:paddingRight="@dimen/keyline_1"
-        android:orientation="horizontal">
+        android:paddingRight="@dimen/keyline_1">
 
         <ImageView
             android:id="@+id/icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="@dimen/activity_vertical_margin"/>
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:textColor="@color/abc_secondary_text_material_dark"
+            android:drawablePadding="@dimen/activity_vertical_margin"
             android:gravity="start|center_vertical"
-            android:textSize="14sp"
-            android:drawablePadding="@dimen/activity_vertical_margin"/>
+            android:textColor="@color/abc_secondary_text_material_dark"
+            android:textSize="14sp" />
     </LinearLayout>
 
 

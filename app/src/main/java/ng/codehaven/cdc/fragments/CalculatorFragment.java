@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ng.codehaven.cdc.R;
 import ng.codehaven.cdc.interfaces.FragmentIdentity;
+import ng.codehaven.cdc.utils.NumberTextWatcher;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +64,9 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         View v = inflater.inflate(R.layout.fragment_calculator, container, false);
         ButterKnife.inject(this, v);
 
+        mFOB.addTextChangedListener(new NumberTextWatcher(mFOB));
+        mCIF.addTextChangedListener(new NumberTextWatcher(mCIF));
+
         mNairaBtn.setOnClickListener(this);
         mDollarBtn.setOnClickListener(this);
         mCalcBtn.setOnClickListener(this);
@@ -85,7 +89,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
     }
 
     public void onRadioButtonClicked(View v) {
-        boolean checked = ((RadioButton) v).isChecked();
+        checked = ((RadioButton) v).isChecked();
 
         switch (v.getId()) {
             case R.id.naira:
@@ -133,23 +137,23 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
 
     private Bundle getBundle() {
         Bundle b = new Bundle();
-        int xr;
+        String xr;
 
-        xr = getXr();
+        xr = String.valueOf(getXr());
 
-        b.putInt("xr", xr);
+        b.putString("xr", xr);
 
-        int fob;
+        String fob;
 
         fob = getFob();
 
-        b.putInt("fob", fob);
+        b.putString("fob", fob);
 
-        int cif;
+        String cif;
 
         cif = getCIF();
 
-        b.putInt("cif", cif);
+        b.putString("cif", cif);
 
         int duty;
 
@@ -198,26 +202,36 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         return duty;
     }
 
-    private int getCIF() {
-        int cif = 0;
+    private String getCIF() {
+        String cif = String.valueOf(0);
         if (!mCIF.getText().toString().isEmpty()) {
-            cif = Integer.parseInt(mCIF.getText().toString());
+            cif = SanitizedText(mCIF.getText().toString());
         }
         return cif;
     }
 
-    private int getFob() {
-        int fob = 0;
+    private String getFob() {
+        String fob = String.valueOf(0);
         if (!mFOB.getText().toString().trim().isEmpty()) {
-            fob = Integer.parseInt(mFOB.getText().toString().trim());
+            fob = SanitizedText(mFOB.getText().toString().trim());
         }
         return fob;
     }
 
-    private int getXr() {
-        int xr = 1;
+    private String SanitizedText(String trim) {
+        String t;
+        if (!trim.isEmpty()) {
+            t = trim.replaceAll(",", "");
+        } else {
+            t = "0";
+        }
+        return t;
+    }
+
+    private double getXr() {
+        double xr = 1;
         if (!mExchange.getText().toString().trim().isEmpty()) {
-            xr = Integer.parseInt(mExchange.getText().toString().trim());
+            xr = Double.parseDouble(mExchange.getText().toString().trim());
         }
         return xr;
     }

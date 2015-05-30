@@ -3,6 +3,7 @@
 
 
     <color name="idc_color">@color/primary</color>
+    <color name="apptheme_color">#fdc010</color>
 
     <color name="refresh_1">#342fd3</color>
     <color name="refresh_2">#342fd3</color>
@@ -11,8 +12,13 @@
 
     <color name="primary">#FDC010</color>
     <color name="primaryDark">#E8AA0F</color>
-    <color name="primaryAlt">#3D9720</color>
+    <color name="primaryAlt">#102E78</color>
 
     <color name="actionbar_text">@color/abc_primary_text_material_dark</color>
+
+    <color name="flat_pressed">#66999999</color>
+    <color name="flat_disabled_text">#40000000</color>
+    <color name="flat_normal_text">#000000</color>
+
 
 </resources>

@@ -17,7 +17,6 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ng.codehaven.cdc.R;
-import ng.codehaven.cdc.utils.Logger;
 import ng.codehaven.cdc.utils.NumberTextWatcher;
 
 public class AddCalculateVariablesDialog extends DialogFragment implements View.OnClickListener {
@@ -38,7 +37,7 @@ public class AddCalculateVariablesDialog extends DialogFragment implements View.
     protected Button mCancel;
     @InjectView(R.id.exchangeCurrencyLabel) protected TextView mCurTextView;
 
-    int cif, fob, rate;
+    double cif, fob, rate;
     boolean isDollars;
     DialogActions handler;
 
@@ -136,12 +135,12 @@ public class AddCalculateVariablesDialog extends DialogFragment implements View.
         }
     }
 
-    private int sanitizedInt(String number){
+    private double sanitizedInt(String number) {
 
-        int n = 0;
+        double n = 0;
 
         if (!number.isEmpty()){
-            n = Integer.parseInt(number.replaceAll(",", ""));
+            n = Double.parseDouble(number.replaceAll(",", ""));
         }
 
         return n;
@@ -162,7 +161,7 @@ public class AddCalculateVariablesDialog extends DialogFragment implements View.
     public interface DialogActions {
         void onCancel();
 
-        void onCalculate(int cif, int fob, int rate, boolean isDollars);
+        void onCalculate(double cif, double fob, double rate, boolean isDollars);
     }
 
 }

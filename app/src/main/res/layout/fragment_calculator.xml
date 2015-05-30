@@ -40,104 +40,107 @@
 
         </RadioGroup>
 
-        <EditText
-            android:id="@+id/exchangeRate"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/exchangeRateWrap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
             android:layout_below="@+id/radioGroup"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:ems="10"
-            android:hint="EXCHANGE RATE"
-            android:inputType="number"
-            android:visibility="gone" />
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin">
 
+            <EditText
+                android:id="@+id/exchangeRate"
+                style="@style/calc_ed_txt"
+            android:hint="EXCHANGE RATE"
+                android:inputType="numberDecimal"
+            android:visibility="gone" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/fobWrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exchangeRateWrap"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin">
         <EditText
             android:id="@+id/fob"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/exchangeRate"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:ems="10"
+            style="@style/calc_ed_txt"
             android:hint="FOB"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/cifWrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fobWrap"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin">
         <EditText
             android:id="@+id/cif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/fob"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:ems="10"
+            style="@style/calc_ed_txt"
             android:hint="CIF"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/dutyWrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cifWrap"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin">
         <EditText
             android:id="@+id/duty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/cif"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:ems="10"
-            android:hint="DUTY"
+            style="@style/calc_ed_txt"
+            android:hint="DUTY RATE"
             android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/levyWrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dutyWrap"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin">
         <EditText
             android:id="@+id/levy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/duty"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:ems="10"
+            style="@style/calc_ed_txt"
             android:hint="LEVY"
             android:inputType="number" />
 
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vatWrap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/levyWrap"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin">
         <EditText
             android:id="@+id/vat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/levy"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:ems="10"
+            style="@style/calc_ed_txt"
             android:hint="VAT"
             android:inputType="number" />
 
+        </android.support.design.widget.TextInputLayout>
+
         <Button
             android:id="@+id/btn_calculate"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/vat"
+            android:layout_below="@id/vatWrap"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
             android:layout_marginTop="32dp"
+            android:background="@drawable/flat_selector"
             android:text="Calculate"
-            android:textColor="@color/primary" />
+            android:textColor="@color/abc_primary_text_material_dark" />
     </RelativeLayout>
 
 

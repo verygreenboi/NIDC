@@ -5,18 +5,16 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -31,10 +29,9 @@ import ng.codehaven.cdc.fragments.DetailFragment;
 import ng.codehaven.cdc.fragments.ResultFragment;
 import ng.codehaven.cdc.utils.AdsCreator;
 import ng.codehaven.cdc.utils.Calculator;
-import ng.codehaven.cdc.utils.Logger;
 
 
-public class DetailsActivity extends ActionBarActivity implements DetailFragment.doCalculate, AddCalculateVariablesDialog.DialogActions {
+public class DetailsActivity extends AppCompatActivity implements DetailFragment.doCalculate, AddCalculateVariablesDialog.DialogActions {
 
     @InjectView(R.id.adView) protected AdView mAdView;
     @InjectView(R.id.cont) protected FrameLayout mContainer;
@@ -49,6 +46,17 @@ public class DetailsActivity extends ActionBarActivity implements DetailFragment
 
     private String mCet;
     private String mDesc;
+
+    public static ActivityOptions getTransition(Activity activity, View v) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            v.setTransitionName("item");
+            return ActivityOptions.makeSceneTransitionAnimation(activity,
+                    v, "item");
+        } else {
+            return null;
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +120,6 @@ public class DetailsActivity extends ActionBarActivity implements DetailFragment
         return defaultSize;
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -135,17 +142,6 @@ public class DetailsActivity extends ActionBarActivity implements DetailFragment
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public static ActivityOptions getTransition(Activity activity, View v){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            v.setTransitionName("item");
-            return ActivityOptions.makeSceneTransitionAnimation(activity,
-                    v, "item");
-        }else {
-            return null;
-        }
-
     }
 
     private void loadFragment(int containerId, Fragment fragment) {
@@ -175,11 +171,11 @@ public class DetailsActivity extends ActionBarActivity implements DetailFragment
     }
 
     @Override
-    public void onCalculate(int cif, int fob, int rate, boolean isDollars) {
+    public void onCalculate(double cif, double fob, double rate, boolean isDollars) {
         if (mItem != null){
-            mItem.putInt("cif", cif);
-            mItem.putInt("fob", fob);
-            mItem.putInt("xRate", rate);
+            mItem.putString("cif", String.valueOf(cif));
+            mItem.putString("fob", String.valueOf(fob));
+            mItem.putString("xRate", String.valueOf(rate));
             mItem.putBoolean("inDollars", isDollars);
             b = Calculator.getDuties(mItem);
 

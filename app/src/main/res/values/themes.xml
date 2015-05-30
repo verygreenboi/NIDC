@@ -10,7 +10,7 @@
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/primaryAlt</item>
 
-        <item name="android:editTextBackground">@drawable/idc_edit_text_holo_light</item>
+        <item name="android:editTextStyle">@style/EditTextAppTheme</item>
 
         <item name="android:textColorHighlight">#992196f3</item>
         <item name="android:textSelectHandleLeft">@drawable/idc_text_select_handle_left</item>
@@ -19,7 +19,8 @@
 
         <item name="android:listChoiceIndicatorMultiple">@drawable/idc_btn_check_holo_light</item>
 
-        <item name="android:listChoiceIndicatorSingle">@drawable/idc_btn_radio_holo_light</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/apptheme_btn_radio_holo_light
+        </item>
 
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarIDC</item>
     </style>

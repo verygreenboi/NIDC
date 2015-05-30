@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     packagingOptions{
         exclude 'META-INF/services/javax.annotation.processing.Processor'
@@ -11,9 +11,9 @@ android {
     defaultConfig {
 //        applicationId "ng.codehaven.cdc"
         minSdkVersion 11
-        targetSdkVersion 21
-        versionCode 5
-        versionName "1.4"
+        targetSdkVersion 22
+        versionCode 7
+        versionName "1.6"
     }
     signingConfigs {
         releaseConfig {
@@ -43,19 +43,14 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project('libraries:srv:SuperRecyclerView:SuperRecyclerView')
-//    compile project('libraries:recyclerview-multiselect:recyclerview-multiselect')
     compile files('libs/gson-2.2.2.jar')
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.google.android.gms:play-services:7.0.0'
+    compile 'com.android.support:design:22.2.0'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:support-v4:22.2.0'
+    compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.android.support:cardview-v7:22.0.0'
-//    compile 'com.android.support:palette-v7:22.0.0'
     compile 'com.mcxiaoke.volley:library:1.0.10'
     compile 'com.jakewharton:butterknife:6.0.0'
-//    compile 'com.wrapp.floatlabelededittext:library:0.0.5'
-//    compile 'com.github.machinarius:preferencefragment:0.1.1'
-//    compile 'com.eowise:recyclerview-stickyheaders:0.5.0@aar'
-//    compile 'com.github.traex.rippleeffect:library:1.2.2'
     compile 'io.realm:realm-android:0.80.0'
 }
