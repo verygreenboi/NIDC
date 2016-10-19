@@ -5,13 +5,13 @@ import com.parse.ParseObject;
 import java.util.List;
 
 public interface ServiceCallbacks {
-    public void onOperationProgress(int progress);
+    void onOperationProgress (int progress);
 
-    public void onOperationCompleted(List<ParseObject> items);
+    void onOperationCompleted (List<ParseObject> items);
 
-    public void onMoreOperationComplete(List<ParseObject> items);
+    void onMoreOperationComplete (List<ParseObject> items);
 
-    public void onRefreshList(List<ParseObject> items);
+    void onRefreshList (List<ParseObject> items);
 
-    public void onSearchComplete(List<ParseObject> items);
+    void onSearchComplete (List<ParseObject> items);
 }

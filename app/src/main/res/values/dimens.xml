@@ -26,4 +26,7 @@
     <dimen name="corner_radius">4dp</dimen>
     <dimen name="layer_padding">3dp</dimen>
 
+
+    <dimen name="fab_margin">16dp</dimen>
+
 </resources>

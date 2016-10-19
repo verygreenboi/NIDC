@@ -8,7 +8,7 @@ import org.json.JSONObject;
  * Created by Thompson on 07/03/2015.
  */
 public interface ListViewItemClick {
-    public void onTitleClick(View v, int position, JSONObject item);
+    void onTitleClick (View v, int position, JSONObject item);
 
-    public void onItemLongClick(int position);
+    void onItemLongClick (int position);
 }

@@ -19,28 +19,42 @@ public class App extends Application {
 
     // The following line should be changed to include the correct property id.
     private static final String PROPERTY_ID = "UA-61338222-2";
-
-    public static int GENERAL_TRACKER = 0;
-
-    public enum TrackerName {
-        APP_TRACKER, // Tracker used only in this app.
-        GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
-        ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
-    }
-
-
-    HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
-
-
+    private static final String[] BRANDS = {"toyota", "honda"};
+    private static final String[] TOYOTA_MODELS = {};
+    private static final String[] HONDA_MODELS = {};
     private static final String TAG = "Volley Request";
+    public static int GENERAL_TRACKER = 0;
     /**
      * A singleton instance of the application class for easy access in other places
      */
     private static App sInstance;
+    HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
     /**
      * Global request queue for Volley
      */
     private RequestQueue mRequestQueue;
+
+    public static String[] getModelArray (CharSequence text) {
+        int index = -1;
+        String[] model;
+        for (int i = 0; i < BRANDS.length; i++) {
+            if (TextUtils.equals(text, BRANDS[i])) {
+                index = i;
+            }
+        }
+        switch (index) {
+            case 0:
+                model = TOYOTA_MODELS;
+                break;
+            case 1:
+                model = HONDA_MODELS;
+                break;
+            default:
+                model = new String[0];
+                break;
+        }
+        return model;
+    }
 
     /**
      * @return ApplicationController singleton instance
@@ -76,19 +90,6 @@ public class App extends Application {
     }
 
     /**
-     * @return The Volley Request queue, the queue will be created if it is null
-     */
-    public RequestQueue getRequestQueue() {
-        // lazy initialize the request queue, the queue instance will be
-        // created when it is accessed for the first time
-        if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        }
-
-        return mRequestQueue;
-    }
-
-    /**
      * Adds the specified request to the global queue, if tag is specified
      * then it is used else Default TAG is used.
      *
@@ -102,6 +103,19 @@ public class App extends Application {
         VolleyLog.d("Adding request to queue: %s", req.getUrl());
 
         getRequestQueue().add(req);
+    }
+
+    /**
+     * @return The Volley Request queue, the queue will be created if it is null
+     */
+    public RequestQueue getRequestQueue () {
+        // lazy initialize the request queue, the queue instance will be
+        // created when it is accessed for the first time
+        if (mRequestQueue == null) {
+            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+
+        return mRequestQueue;
     }
 
     /**
@@ -126,6 +140,12 @@ public class App extends Application {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
+    }
+
+    public enum TrackerName {
+        APP_TRACKER, // Tracker used only in this app.
+        GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
+        ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
     }
 
 

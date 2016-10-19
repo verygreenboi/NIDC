@@ -45880,17 +45880,17 @@ ng.codehaven.cdc.HomeActivity -> ng.codehaven.cdc.HomeActivity:
     android.support.v7.widget.RecyclerView mMenuListLayout -> mMenuListLayout
     android.widget.FrameLayout mLeftLayout -> mLeftLayout
     java.util.ArrayList mMenuList -> n
-    android.widget.FrameLayout mDetailsLayout -> p
-    ng.codehaven.cdc.adapters.MenuListAdapter mMenuAdapter -> q
-    java.lang.String[] mMenuItems -> r
+    android.widget.FrameLayout mDetailsLayout -> q
+    ng.codehaven.cdc.adapters.MenuListAdapter mMenuAdapter -> r
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle -> s
     boolean mDrawerOpened -> t
     boolean mDrawerSeen -> u
     ng.codehaven.cdc.utils.SharedPrefUtil mSharedPrefUtil -> v
     int oldPosition -> w
     android.support.v4.app.FragmentManager fm -> x
+    android.view.inputmethod.InputMethodManager manager -> o
     boolean isLarge -> y
-    boolean $assertionsDisabled -> o
+    boolean $assertionsDisabled -> p
     void onCreate(android.os.Bundle) -> onCreate
     void setupNavDrawer() -> k
     void onPostCreate(android.os.Bundle) -> onPostCreate
@@ -46054,10 +46054,13 @@ ng.codehaven.cdc.fragments.CalculatorFragment -> ng.codehaven.cdc.fragments.Calc
     android.widget.EditText mLevy -> mLevy
     android.widget.EditText mVAT -> mVAT
     android.widget.Button mCalcBtn -> mCalcBtn
-    boolean checked -> a
-    boolean isDollars -> b
-    ng.codehaven.cdc.interfaces.FragmentIdentity handler -> c
-    ng.codehaven.cdc.fragments.CalculatorFragment$doCalculate calc -> d
+    boolean checked -> c
+    boolean isDollars -> d
+    ng.codehaven.cdc.interfaces.FragmentIdentity handler -> e
+    ng.codehaven.cdc.fragments.CalculatorFragment$doCalculate calc -> f
+    android.view.inputmethod.InputMethodManager manager -> a
+    boolean $assertionsDisabled -> b
+    void onCreate(android.os.Bundle) -> a
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onResume() -> r
     void onAttach(android.app.Activity) -> a
@@ -46072,6 +46075,8 @@ ng.codehaven.cdc.fragments.CalculatorFragment -> ng.codehaven.cdc.fragments.Calc
     java.lang.String getFob() -> Q
     java.lang.String SanitizedText(java.lang.String) -> a
     double getXr() -> R
+    void onFocusChange(android.view.View,boolean) -> onFocusChange
+    java.lang.String getAltHint(android.widget.EditText,boolean) -> a
 ng.codehaven.cdc.fragments.CalculatorFragment$$ViewInjector -> ng.codehaven.cdc.fragments.CalculatorFragment$$ViewInjector:
     void inject(butterknife.ButterKnife$Finder,ng.codehaven.cdc.fragments.CalculatorFragment,java.lang.Object) -> inject
     void reset(ng.codehaven.cdc.fragments.CalculatorFragment) -> reset

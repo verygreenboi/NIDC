@@ -19579,8 +19579,11 @@ ng.codehaven.cdc.R$string: int store_picture_message
 ng.codehaven.cdc.R$string: int store_picture_title
 ng.codehaven.cdc.R$string: int title_activity_details
 ng.codehaven.cdc.R$string: int title_activity_search_results
+ng.codehaven.cdc.R$string: int txt_cif_hint
 ng.codehaven.cdc.R$string: int txt_dollars
+ng.codehaven.cdc.R$string: int txt_fob_hint
 ng.codehaven.cdc.R$string: int txt_naira
+ng.codehaven.cdc.R$string: int txt_xr_hint
 ng.codehaven.cdc.R$string: int wallet_buy_button_place_holder
 ng.codehaven.cdc.R$style: int AlertDialog_AppCompat
 ng.codehaven.cdc.R$style: int AlertDialog_AppCompat_Light

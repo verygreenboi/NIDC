@@ -11313,7 +11313,7 @@ ng.codehaven.cdc.Constants:
     public static final java.lang.String CET_CLASS
     3:3:public Constants()
 ng.codehaven.cdc.DetailsActivity:
-    142:147:public static android.app.ActivityOptions getTransition(android.app.Activity,android.view.View)
+    51:56:public static android.app.ActivityOptions getTransition(android.app.Activity,android.view.View)
 ng.codehaven.cdc.DividerItemDecoration:
     public static final int HORIZONTAL_LIST
     public static final int VERTICAL_LIST
@@ -11347,7 +11347,7 @@ ng.codehaven.cdc.fragments.CalcResultFragment
 ng.codehaven.cdc.fragments.CalculatorFragment:
     public static final int ID
     public static final java.lang.String TITLE
-    55:57:public static ng.codehaven.cdc.fragments.CalculatorFragment newInstance(android.os.Bundle)
+    60:62:public static ng.codehaven.cdc.fragments.CalculatorFragment newInstance(android.os.Bundle)
 ng.codehaven.cdc.fragments.CetListFragment:
     public static final int ID
     public static final java.lang.String TITLE

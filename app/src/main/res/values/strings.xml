@@ -24,7 +24,7 @@
 
     <string-array name="menu_list">
         <item>Calculator</item>
-        <item>List</item>
+        <item>Tariff List</item>
         <item>Favorites</item>
         <item>Prohibition List</item>
         <item>CEMA Laws</item>
@@ -32,5 +32,12 @@
     <string name="title_activity_search_results">Search</string>
     <string name="txt_naira">In Naira</string>
     <string name="txt_dollars">In Dollars</string>
+    <string name="txt_xr_hint">EXCHANGE RATE</string>
+    <string name="txt_fob_hint">FOB(Freight on board)</string>
+    <string name="txt_cif_hint">CIF(Cost Insurance Freight)</string>
+    <string name="txt_brand">Brand</string>
+    <string name="txt_model">Model</string>
+    <string name="txt_year">Year</string>
+    <string name="txt_used">Used?</string>
 
 </resources>

@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import com.google.android.gms.ads.AdRequest;
@@ -26,6 +27,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -38,6 +40,8 @@ import ng.codehaven.cdc.fragments.FavoritesFragment;
 import ng.codehaven.cdc.fragments.ResultFragment;
 import ng.codehaven.cdc.fragments.WebViewFragment;
 import ng.codehaven.cdc.interfaces.FragmentIdentity;
+import ng.codehaven.cdc.interfaces.OnCarFragmentInteractionListener;
+import ng.codehaven.cdc.models.Car;
 import ng.codehaven.cdc.models.Item;
 import ng.codehaven.cdc.models.ListMenuItem;
 import ng.codehaven.cdc.utils.AdsCreator;
@@ -47,7 +51,9 @@ import ng.codehaven.cdc.utils.SharedPrefUtil;
 
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener,
-        CetListFragment.bubbleItemUp, DetailFragment.doCalculate, MenuListAdapter.MenuSelected, FragmentIdentity, CalculatorFragment.doCalculate {
+        CetListFragment.bubbleItemUp, DetailFragment.doCalculate,
+        MenuListAdapter.MenuSelected, FragmentIdentity,
+        CalculatorFragment.doCalculate, OnCarFragmentInteractionListener {
 
     @InjectView(R.id.container)
     protected FrameLayout mContainer;
@@ -68,26 +74,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     protected FrameLayout mLeftLayout;
 
     ArrayList<ListMenuItem> mMenuList;
+    InputMethodManager manager;
     private FrameLayout mDetailsLayout;
     private MenuListAdapter mMenuAdapter;
-    private String[] mMenuItems;
     private ActionBarDrawerToggle mDrawerToggle;
     private boolean mDrawerOpened;
     private boolean mDrawerSeen;
-
     private SharedPrefUtil mSharedPrefUtil;
-
     private int oldPosition = -1;
-
     private FragmentManager fm;
-
     private boolean isLarge;
     private Bundle mCalcResult;
     private int mCurrentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         isLarge = getResources().getBoolean(R.bool.isLarge);
 
         if (BuildConfig.DEBUG) {
@@ -100,6 +101,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.inject(this);
+
+        manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         mSharedPrefUtil = new SharedPrefUtil(this);
 
@@ -117,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         ((App) getApplication()).getTracker(App.TrackerName.APP_TRACKER);
 
         // Setup menu
-        mMenuItems = getResources().getStringArray(R.array.menu_list);
+        String[] mMenuItems = getResources().getStringArray(R.array.menu_list);
 
         mMenuList = new ArrayList<>();
 
@@ -138,14 +141,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         AdRequest adRequest = adsCreator.adRequest();
         mAdView.loadAd(adRequest);
 
-//        if (savedInstanceState == null) {
-//            loadFragment(mContainer.getId(), new CalculatorFragment());
-//        } else {
-//            if (savedInstanceState.getInt("savedFrag") == -2){
-//                loadFragment(mContainer.getId(), ResultFragment.newInstance(savedInstanceState));
-//            }
-//        }
-
     }
 
     private void setupNavDrawer() {
@@ -155,6 +150,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
+                manager.hideSoftInputFromWindow(mContainer.getWindowToken(), 0);
                 mDrawerOpened = true;
             }
 
@@ -172,6 +168,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mMenuListLayout.setAdapter(mMenuAdapter);
     }
 
+    private void loadFragment (int containerId, Fragment fragment) {
+        fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(containerId, fragment).commit();
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -179,18 +180,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
-        GoogleAnalytics.getInstance(this).reportActivityStart(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (!mDrawerOpened && !mDrawerSeen) {
-            mDrawerLayout.openDrawer(GravityCompat.START);
-        }
+    protected void onStop () {
+        super.onStop();
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
     }
 
     @Override
@@ -202,16 +194,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    protected void onResume () {
+        super.onResume();
+        if (!mDrawerOpened && !mDrawerSeen) {
+            mDrawerLayout.openDrawer(GravityCompat.START);
+        }
     }
 
-    private void loadFragment(int containerId, Fragment fragment) {
-        fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(containerId, fragment).commit();
+    @Override
+    protected void onStart () {
+        super.onStart();
+        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -252,11 +247,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public boolean onSearchRequested() {
-        return super.onSearchRequested();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -272,6 +262,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSearchRequested () {
+        return super.onSearchRequested();
     }
 
     @Override
@@ -371,5 +366,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void doCalc(Bundle b) {
         fm = getSupportFragmentManager();
         fm.beginTransaction().replace(mContainer.getId(), ResultFragment.newInstance(Calculator.calDuties(b))).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void carListInteraction (List<Car> list, boolean used) {
+
+    }
+
+    @Override
+    public void carInteraction (Car car) {
+
     }
 }

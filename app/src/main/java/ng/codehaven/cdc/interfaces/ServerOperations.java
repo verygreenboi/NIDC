@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ServerOperations {
 
-    public List<ParseObject> getItems() throws Exception;
+    List<ParseObject> getItems () throws Exception;
 
-    public List<ParseObject> doMultiSearch() throws Exception;
+    List<ParseObject> doMultiSearch () throws Exception;
 
 }

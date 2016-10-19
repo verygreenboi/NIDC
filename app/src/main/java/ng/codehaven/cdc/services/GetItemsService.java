@@ -11,16 +11,13 @@ import android.os.IBinder;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ng.codehaven.cdc.interfaces.ServiceCallbacks;
 import ng.codehaven.cdc.utils.DoServerOperations;
-import ng.codehaven.cdc.utils.Logger;
 
 public class GetItemsService extends Service {
 
@@ -28,7 +25,6 @@ public class GetItemsService extends Service {
 
     private String[] keywords;
 
-    private String order;
     private int limit, skip;
     private boolean refresh;
     private String[] mPayload;
@@ -46,6 +42,11 @@ public class GetItemsService extends Service {
         super.onCreate();
     }
 
+    @Override
+    public IBinder onBind (Intent intent) {
+        return mLocalBinder;
+    }
+
     public void doGetItems(JSONObject j) {
         new doGetItemsAsyncTask().execute(j);
     }
@@ -53,11 +54,6 @@ public class GetItemsService extends Service {
     public void doSearch(JSONObject s, String[] payload) {
         mPayload = payload;
         new doSearchAsyncTask().execute(s);
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return mLocalBinder;
     }
 
     public class LocalBinder extends Binder {
@@ -68,20 +64,6 @@ public class GetItemsService extends Service {
 
     private final class doSearchAsyncTask extends AsyncTask<JSONObject, Integer, List<ParseObject>> {
 
-        /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
-         * <p/>
-         * This method can call {@link #publishProgress} to publish updates
-         * on the UI thread.
-         *
-         * @param params The parameters of the task.
-         * @return A result, defined by the subclass of this task.
-         * @see #onPreExecute()
-         * @see #onPostExecute
-         * @see #publishProgress
-         */
         @Override
         protected List<ParseObject> doInBackground(JSONObject... params) {
             limit = 0;
@@ -91,7 +73,6 @@ public class GetItemsService extends Service {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
 
 
             mServer = new DoServerOperations("cet", 20, skip, mPayload);
@@ -106,17 +87,6 @@ public class GetItemsService extends Service {
             return l;
         }
 
-        /**
-         * <p>Runs on the UI thread after {@link #doInBackground}. The
-         * specified result is the value returned by {@link #doInBackground}.</p>
-         * <p/>
-         * <p>This method won't be invoked if the task was cancelled.</p>
-         *
-         * @param items The result of the operation computed by {@link #doInBackground}.
-         * @see #onPreExecute
-         * @see #doInBackground
-         * @see #onCancelled(Object)
-         */
         @Override
         protected void onPostExecute(List<ParseObject> items) {
             if (mCallBack != null) {
@@ -132,19 +102,6 @@ public class GetItemsService extends Service {
             }
         }
 
-        /**
-         * <p>Runs on the UI thread after {@link #cancel(boolean)} is invoked and
-         * {@link #doInBackground(Object[])} has finished.</p>
-         * <p/>
-         * <p>The default implementation simply invokes {@link #onCancelled()} and
-         * ignores the result. If you write your own implementation, do not call
-         * <code>super.onCancelled(result)</code>.</p>
-         *
-         * @param parseObjects The result, if any, computed in
-         *                     {@link #doInBackground(Object[])}, can be null
-         * @see #cancel(boolean)
-         * @see #isCancelled()
-         */
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         protected void onCancelled(List<ParseObject> parseObjects) {
@@ -156,6 +113,7 @@ public class GetItemsService extends Service {
 
         @Override
         protected List<ParseObject> doInBackground(JSONObject... params) {
+            String order;
             try {
                 order = params[0].getString("order");
                 limit = params[0].getInt("limit");

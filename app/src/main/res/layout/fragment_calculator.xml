@@ -51,9 +51,9 @@
             <EditText
                 android:id="@+id/exchangeRate"
                 style="@style/calc_ed_txt"
-            android:hint="EXCHANGE RATE"
+                android:hint="@string/txt_xr_hint"
                 android:inputType="numberDecimal"
-            android:visibility="gone" />
+                android:visibility="gone" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -67,7 +67,7 @@
         <EditText
             android:id="@+id/fob"
             style="@style/calc_ed_txt"
-            android:hint="FOB"
+            android:hint="@string/txt_fob_hint"
             android:inputType="numberDecimal" />
         </android.support.design.widget.TextInputLayout>
 
@@ -81,7 +81,7 @@
         <EditText
             android:id="@+id/cif"
             style="@style/calc_ed_txt"
-            android:hint="CIF"
+            android:hint="@string/txt_cif_hint"
             android:inputType="numberDecimal" />
         </android.support.design.widget.TextInputLayout>
 
@@ -135,6 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/vatWrap"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:layout_marginTop="32dp"

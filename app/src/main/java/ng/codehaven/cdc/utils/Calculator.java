@@ -118,6 +118,20 @@ public class Calculator {
         return n;
     }
 
+    private static double getCif (String cif, String exchange, boolean isDollars) {
+        double mExchange = Double.parseDouble(exchange);
+        return getmCIF(cif, isDollars, mExchange);
+    }
+
+    private static double getFob (String fob, String exchange, boolean isDollars) {
+        double mFOB = Double.parseDouble(fob);
+        double mExchange = Double.parseDouble(exchange);
+        if (isDollars) {
+            mFOB = Double.parseDouble(fob) * mExchange;
+        }
+        return mFOB;
+    }
+
     /**
      * @param duty
      * @param cif
@@ -147,16 +161,11 @@ public class Calculator {
     }
 
     /**
-     * @param cif
-     * @param duty
-     * @param surcharge
-     * @param etls
-     * @param ciss
-     * @param levy
+     * @param fob
      * @return
      */
-    private static double getVat(double cif, double duty, double surcharge, double etls, double ciss, double levy) {
-        return ((Constants.VAT / 100) * (etls + ciss + duty + surcharge + levy + cif));
+    private static double getCISS (double fob) {
+        return ((Constants.FOB_PERCENTAGE / 100) * fob);
     }
 
     /**
@@ -166,6 +175,19 @@ public class Calculator {
      */
     private static double getLevy(int levy, double cif) {
         return (((double) levy / 100) * cif);
+    }
+
+    /**
+     * @param cif
+     * @param duty
+     * @param surcharge
+     * @param etls
+     * @param ciss
+     * @param levy
+     * @return
+     */
+    private static double getVat (double cif, double duty, double surcharge, double etls, double ciss, double levy) {
+        return ((Constants.VAT / 100) * (etls + ciss + duty + surcharge + levy + cif));
     }
 
     /**
@@ -179,28 +201,6 @@ public class Calculator {
      */
     private static double getTotal(double duty, double surcharge, double levy, double ciss, double etls, double vat) {
         return duty + surcharge + levy + ciss + etls + vat;
-    }
-
-    private static double getFob(String fob, String exchange, boolean isDollars) {
-        double mFOB = Double.parseDouble(fob);
-        double mExchange = Double.parseDouble(exchange);
-        if (isDollars) {
-            mFOB = Double.parseDouble(fob) * mExchange;
-        }
-        return mFOB;
-    }
-
-    /**
-     * @param fob
-     * @return
-     */
-    private static double getCISS(double fob) {
-        return ((Constants.FOB_PERCENTAGE / 100) * fob);
-    }
-
-    private static double getCif(String cif, String exchange, boolean isDollars) {
-        double mExchange = Double.parseDouble(exchange);
-        return getmCIF(cif, isDollars, mExchange);
     }
 
     private static double getmCIF(String cif, boolean isDollars, double mExchange) {
@@ -217,12 +217,12 @@ public class Calculator {
 
         double cif = Double.parseDouble(b.getString("cif"));
         double fob = Double.parseDouble(b.getString("fob"));
-        double importDuty = Double.parseDouble(b.getString(DetailFragment.ARG_IMPORT_DUTY));
-        double levy = Double.parseDouble(b.getString(DetailFragment.ARG_LEVY));
+        double importDuty = Double.parseDouble(String.valueOf(b.getInt(DetailFragment.ARG_IMPORT_DUTY)));
+        double levy = Double.parseDouble(String.valueOf(b.getInt(DetailFragment.ARG_LEVY)));
 
         if (b.getBoolean("inDollars")){
-            cif = cif * b.getInt("xRate");
-            fob = fob * b.getInt("xRate");
+            cif = cif * Double.parseDouble(b.getString("xRate"));
+            fob = fob * Double.parseDouble(b.getString("xRate"));
         }
 
         double[] duties = calculate(cif, fob, importDuty, levy);

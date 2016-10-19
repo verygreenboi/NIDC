@@ -2,11 +2,13 @@ package ng.codehaven.cdc.fragments;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -20,7 +22,7 @@ import ng.codehaven.cdc.utils.NumberTextWatcher;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CalculatorFragment extends Fragment implements View.OnClickListener {
+public class CalculatorFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener {
 
     public static final int ID = 0;
     public static final String TITLE = "Calculator";
@@ -42,6 +44,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
     protected EditText mVAT;
     @InjectView(R.id.btn_calculate)
     protected Button mCalcBtn;
+    InputMethodManager manager;
     private boolean checked;
     private boolean isDollars;
     private FragmentIdentity handler;
@@ -51,10 +54,23 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         // Required empty public constructor
     }
 
-    public static CalculatorFragment newInstance(Bundle b){
+    public static CalculatorFragment newInstance (Bundle b) {
         CalculatorFragment fragment = new CalculatorFragment();
         fragment.setArguments(b);
         return fragment;
+    }
+
+    @Override
+    public void onAttach (Activity activity) {
+        super.onAttach(activity);
+        handler = (FragmentIdentity) getActivity();
+        calc = (doCalculate) getActivity();
+    }
+
+    @Override
+    public void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        manager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     @Override
@@ -81,11 +97,21 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         handler.getTitle(TITLE);
     }
 
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        handler = (FragmentIdentity) getActivity();
-        calc = (doCalculate) getActivity();
+    public void onClick (View v) {
+
+        if (v.getId() == R.id.naira || v.getId() == R.id.dollars) {
+            onRadioButtonClicked(v);
+        } else if (v.getId() == mCalcBtn.getId()) {
+            assert manager != null;
+            manager.hideSoftInputFromWindow(mVAT.getWindowToken(), 0);
+            doCalcSubmit();
+        }
     }
 
     public void onRadioButtonClicked(View v) {
@@ -114,20 +140,6 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
                 break;
         }
 
-    }
-
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.naira || v.getId() == R.id.dollars) {
-            onRadioButtonClicked(v);
-        } else if (v.getId() == mCalcBtn.getId()) {
-            doCalcSubmit();
-        }
     }
 
     private void doCalcSubmit() {
@@ -178,20 +190,28 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         return b;
     }
 
-    private int getLevy() {
-        int levy = 0;
-        if (!mLevy.getText().toString().trim().isEmpty()) {
-            levy = Integer.parseInt(mLevy.getText().toString().trim());
+    private double getXr () {
+        double xr = 1;
+        if (!mExchange.getText().toString().trim().isEmpty()) {
+            xr = Double.parseDouble(mExchange.getText().toString().trim());
         }
-        return levy;
+        return xr;
     }
 
-    private int getVAT() {
-        int vat = 0;
-        if (!mVAT.getText().toString().trim().isEmpty()) {
-            vat = Integer.parseInt(mVAT.getText().toString().trim());
+    private String getFob () {
+        String fob = String.valueOf(0);
+        if (!mFOB.getText().toString().trim().isEmpty()) {
+            fob = SanitizedText(mFOB.getText().toString().trim());
         }
-        return vat;
+        return fob;
+    }
+
+    private String getCIF () {
+        String cif = String.valueOf(0);
+        if (!mCIF.getText().toString().isEmpty()) {
+            cif = SanitizedText(mCIF.getText().toString());
+        }
+        return cif;
     }
 
     private int getDuty() {
@@ -202,20 +222,20 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         return duty;
     }
 
-    private String getCIF() {
-        String cif = String.valueOf(0);
-        if (!mCIF.getText().toString().isEmpty()) {
-            cif = SanitizedText(mCIF.getText().toString());
+    private int getVAT () {
+        int vat = 0;
+        if (!mVAT.getText().toString().trim().isEmpty()) {
+            vat = Integer.parseInt(mVAT.getText().toString().trim());
         }
-        return cif;
+        return vat;
     }
 
-    private String getFob() {
-        String fob = String.valueOf(0);
-        if (!mFOB.getText().toString().trim().isEmpty()) {
-            fob = SanitizedText(mFOB.getText().toString().trim());
+    private int getLevy () {
+        int levy = 0;
+        if (!mLevy.getText().toString().trim().isEmpty()) {
+            levy = Integer.parseInt(mLevy.getText().toString().trim());
         }
-        return fob;
+        return levy;
     }
 
     private String SanitizedText(String trim) {
@@ -228,15 +248,35 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
         return t;
     }
 
-    private double getXr() {
-        double xr = 1;
-        if (!mExchange.getText().toString().trim().isEmpty()) {
-            xr = Double.parseDouble(mExchange.getText().toString().trim());
+    @Override
+    public void onFocusChange (View view, boolean b) {
+        int id = view.getId();
+        if (id == mFOB.getId()) {
+            mFOB.setHint(getAltHint(mFOB, b));
+        } else if (id == mCIF.getId()) {
+            mCIF.setHint(getAltHint(mCIF, b));
         }
-        return xr;
+    }
+
+    private String getAltHint (EditText et, boolean hasFocus) {
+        String hint = null;
+        if (et.getId() == mFOB.getId()) {
+            if (hasFocus) {
+                hint = "Freight on board";
+            } else {
+                hint = "FOB";
+            }
+        } else if (et.getId() == mCIF.getId()) {
+            if (hasFocus) {
+                hint = "Cost Insurance Freight";
+            } else {
+                hint = "CIF";
+            }
+        }
+        return hint;
     }
 
     public interface doCalculate {
-        public void doCalc(Bundle b);
+        void doCalc (Bundle b);
     }
 }
